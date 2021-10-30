@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "jar_files/annotations-13.0.jar",
+        "jar_files/gson-2.8.6.jar",
+        "jar_files/kotlin-stdlib-1.3.72.jar",
+        "jar_files/kotlin-stdlib-common-1.3.70.jar",
+        "jar_files/okhttp-4.8.0.jar",
+        "jar_files/okio-2.7.0.jar"
+    ]
+}
