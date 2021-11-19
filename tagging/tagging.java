@@ -165,7 +165,7 @@ class Tagging {
 
 
     //sets the data member, restaurants, to the union of all the ArrayLists of Restaurants
-    private void union(ArrayList<ArrayList<Restaurant> > rl) {
+    private void intersection(ArrayList<ArrayList<Restaurant> > rl) {
         ArrayList<Restaurant> common = new ArrayList<Restaurant>(rl.get(0));
         HashSet<Restaurant> tempHash = new HashSet<Restaurant>();
 
@@ -204,7 +204,7 @@ class Tagging {
         }
 
         else 
-            union(tempRestaurants);
+            intersection(tempRestaurants);
 
 
         //assign value to data member _dealbreakers
