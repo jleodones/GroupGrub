@@ -4,127 +4,7 @@ import java.lang.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-class Restaurant {
-    private Double rating;
-    private String price;
-    private String phone;
-    private String id;
-    private Map<String, String> categories;
-    private int review_count;
-    private String name;
-    private String url;
-    private Map<String, Double> coordinates;
-    private String image_url;
-    private Map<String, String> location;
-
-    public Double getRating() {
-        return this.rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public String getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Map<String, String> getCategories() {
-        return this.categories;
-    }
-
-    public void setCategories(Map<String, String> categories) {
-        this.categories = categories;
-    }
-
-    public int getReview_count() {
-        return this.review_count;
-    }
-
-    public void setReview_count(int review_count) {
-        this.review_count = review_count;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Map<String,Double> getCoordinates()
-
-    {
-		return this.coordinates;
-	}
-
-    public void setCoordinates(Map<String,Double> coords)
-    {
-		this.coordinates = coords;
-	}
-
-    public String getImage_url() {
-        return this.image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
-    public Map<String,String> getLocation()
-
-    {
-		return this.location;
-	}
-
-    public void setLocation(Map<String,String> loc) 
-    {
-		this.location = loc;
-	}
-    /*@Override
-    public String toString() {
-        return
-        "{\n" +
-        "\ttotal: " + rating.toString() + ",\n" +
-        "\tbusinesses: [\n" +
-
-
-    }*/
-}
-
-/*
- json string might overflow?
-*/
-class Tagging {
+public class Tagging {
     /*
      * TODO: 
      * - work with ashley + jamie to get tags and dealbreakers
@@ -137,12 +17,8 @@ class Tagging {
     private HashSet<Restaurant> _restaurants;
     private HashSet<Restaurant> _dealbreakers;
 
-    //Justin wrote this
-    private ArrayList<String> getRestaurants(ArrayList<String> tag) {
-        //Returns an Arraylist<JSON strings of restaurants>
-        return null;
-    }
-
+    //Gets the keywords from Yelp API
+    private static YelpAPISearch yelp;
 
     //Parses the Json Strings of Restaurants to be added to the hashset of restaurants to be used
     private ArrayList<ArrayList<Restaurant> > parseJson(ArrayList<String> jsonRestaurant) {
@@ -188,8 +64,8 @@ class Tagging {
 
     private HashSet<Restaurant> finalRestaurants() {
         //Get the JSON String of an ArrayList of restauraunts we want and don't want
-        ArrayList<String> restaurantList = getRestaurants(_wantTags);
-        ArrayList<String> dealbreakerList = getRestaurants(_noWantTags);
+        ArrayList<String> restaurantList = yelp.getRestaurants(_wantTags);
+        ArrayList<String> dealbreakerList = yelp.getRestaurants(_noWantTags);
         
         //assign values to restaurants and dealbreakers
         ArrayList<ArrayList<Restaurant> > tempRestaurants = parseJson(restaurantList);
@@ -223,6 +99,21 @@ class Tagging {
         }
 
         return finalList;
+    }
+
+    public static void main(String[] args) {
+        
+        YelpAPISearch search = new YelpAPISearch();
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("burgers");
+        //tags.add("pizza");
+        //tags.add("sandwiches");
+        ArrayList<String> jsons = search.getRestaurants(tags);
+        
+        Tagging tagger = new Tagging();
+        ArrayList<ArrayList<Restaurant> > objs = tagger.parseJson(jsons);
+        tagger.intersection(objs);
+        tagger.finalRestaurants();
     }
 }
 
