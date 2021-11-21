@@ -19,7 +19,7 @@ public class YelpAPISearch {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder().build();
             String builder = "https://api.yelp.com/v3/businesses/search" + "?term=" + tag +
-            "&location=" + location + "&radius=" + search_radius + "&limit=" + 50 +
+            "&location=" + location + "&radius=" + search_radius + "&limit=" + 1 +
             "&offset" + search_limit + "&open_now=true"; 
 
             Request request = new Request.Builder().url(builder).method("GET", null).addHeader(
@@ -40,10 +40,15 @@ public class YelpAPISearch {
     //Returns a list of jsons that associate with each tag 
     public ArrayList<String> getRestaurants(ArrayList<String> tags) {
         ArrayList<String> listOfJsons = new ArrayList<>();
+
+        if(tags == null)
+            return listOfJsons;
+
         for (String t : tags) {
             String search = SearchKeyWord(t);
             listOfJsons.add(search);
         }
+
         return listOfJsons;
     }
 

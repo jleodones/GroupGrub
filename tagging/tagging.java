@@ -20,6 +20,12 @@ public class Tagging {
     //Gets the keywords from Yelp API
     private static YelpAPISearch yelp;
 
+    //
+    public Tagging(ArrayList<String> want, ArrayList<String> noWant) {
+        this._wantTags = want;
+        this._noWantTags = noWant;
+        yelp = new YelpAPISearch();
+    }
     //Parses the Json Strings of Restaurants to be added to the hashset of restaurants to be used
     private ArrayList<ArrayList<Restaurant> > parseJson(ArrayList<String> jsonRestaurant) {
         Gson gson = new Gson();
@@ -71,7 +77,7 @@ public class Tagging {
         ArrayList<ArrayList<Restaurant> > tempRestaurants = parseJson(restaurantList);
         ArrayList<ArrayList<Restaurant> > tempDealbreakers = parseJson(dealbreakerList);
 
-
+        System.out.println(tempRestaurants.size());
         //assign value to data member _restaurants
         if(tempRestaurants.size() == 1) {
             for(Restaurant r : tempRestaurants.get(0)) {
@@ -82,6 +88,7 @@ public class Tagging {
         else 
             intersection(tempRestaurants);
 
+        //System.out.println(_restaurants.size());
 
         //assign value to data member _dealbreakers
         for(ArrayList<Restaurant> m : tempDealbreakers) {
@@ -102,18 +109,19 @@ public class Tagging {
     }
 
     public static void main(String[] args) {
-        
+        /*ArrayList<String> w = new ArrayList<String>();
+        w.add("burgers");
+        ArrayList<String> nw = new ArrayList<String>();
+
+
+        Tagging tagger = new Tagging(w, nw);
+        tagger.finalRestaurants();*/
+
         YelpAPISearch search = new YelpAPISearch();
         ArrayList<String> tags = new ArrayList<>();
         tags.add("burgers");
-        //tags.add("pizza");
-        //tags.add("sandwiches");
         ArrayList<String> jsons = search.getRestaurants(tags);
-        
-        Tagging tagger = new Tagging();
-        ArrayList<ArrayList<Restaurant> > objs = tagger.parseJson(jsons);
-        tagger.intersection(objs);
-        tagger.finalRestaurants();
+        System.out.println(jsons.toString());
     }
 }
 
