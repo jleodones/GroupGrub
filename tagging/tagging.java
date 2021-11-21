@@ -14,8 +14,10 @@ public class Tagging {
     //List of tags and dealbreakers that will be provided
     private ArrayList<String> _wantTags;
     private ArrayList<String> _noWantTags;
-    private HashSet<Restaurant> _restaurants;
-    private HashSet<Restaurant> _dealbreakers;
+
+    //Key: ID, Val: Restaurant Object
+    private HashMap<String, Restaurant> _restaurants = new HashMap<String, Restaurant>();
+    private HashMap<String, Restaurant> _dealbreakers = new HashMap<String, Restaurant>();
 
     //Gets the keywords from Yelp API
     private static YelpAPISearch yelp;
@@ -27,19 +29,19 @@ public class Tagging {
         yelp = new YelpAPISearch();
     }
     //Parses the Json Strings of Restaurants to be added to the hashset of restaurants to be used
-    private ArrayList<ArrayList<Restaurant> > parseJson(ArrayList<String> jsonRestaurant) {
+    private ArrayList<QueryResults> parseJson(ArrayList<String> jsonRestaurant) {
         Gson gson = new Gson();
 
-        ArrayList<ArrayList<Restaurant> > restaurantFromTags = new ArrayList<ArrayList<Restaurant> >();
+        ArrayList<QueryResults> restaurantFromTags = new ArrayList<QueryResults>();
         
         for(String restaurantList : jsonRestaurant) {
-            List<Restaurant> tempList = new ArrayList<Restaurant>();
+            QueryResults temp = null;
             try {
-                tempList = gson.fromJson(restaurantList, new TypeToken<ArrayList<Restaurant>>() {}.getType());
+                temp = gson.fromJson(restaurantList, new TypeToken<QueryResults>() {}.getType());
             } catch(Exception ie) {
                 System.out.println("Recieved json is not in the correct format |or| Restaurant is not set up correctly");
             }
-            restaurantFromTags.add((ArrayList<Restaurant>) tempList);
+            restaurantFromTags.add((QueryResults) temp);
         }
 
         return restaurantFromTags;
@@ -47,81 +49,89 @@ public class Tagging {
 
 
     //sets the data member, restaurants, to the union of all the ArrayLists of Restaurants
-    private void intersection(ArrayList<ArrayList<Restaurant> > rl) {
-        ArrayList<Restaurant> common = new ArrayList<Restaurant>(rl.get(0));
-        HashSet<Restaurant> tempHash = new HashSet<Restaurant>();
+    private void intersection(ArrayList<QueryResults> rl) {
+        ArrayList<Restaurant> common = new ArrayList<Restaurant>(rl.get(0).getBusinesses());
+        HashMap<String, Restaurant> tempHash = new HashMap<String, Restaurant>();
+
+        //deletes all closed restaurants from the list
+        for(Restaurant r : common ){
+            if(r.getIs_closed())
+                common.remove(r);
+        }
 
         //find all the common restaurants in each ArrayList
         for(int i=1; i<rl.size(); i++) {
             ArrayList<Restaurant> temp = new ArrayList<Restaurant>();
-            for(Restaurant x : rl.get(i)) {
-                if(common.contains(x) == true) 
+            for(Restaurant x : rl.get(i).getBusinesses()) {
+                if(!x.getIs_closed() && common.contains(x) == true) 
                     temp.add(x);
             }
             common = temp;
         }
 
         for(Restaurant x : common) {
-            tempHash.add(x);
+            tempHash.put(x.getID(), x);
         }
 
         _restaurants = tempHash; 
     }
 
-    private HashSet<Restaurant> finalRestaurants() {
+    private HashMap<String, Restaurant> finalRestaurants() {
         //Get the JSON String of an ArrayList of restauraunts we want and don't want
         ArrayList<String> restaurantList = yelp.getRestaurants(_wantTags);
         ArrayList<String> dealbreakerList = yelp.getRestaurants(_noWantTags);
         
         //assign values to restaurants and dealbreakers
-        ArrayList<ArrayList<Restaurant> > tempRestaurants = parseJson(restaurantList);
-        ArrayList<ArrayList<Restaurant> > tempDealbreakers = parseJson(dealbreakerList);
+        ArrayList<QueryResults> tempRestaurants = parseJson(restaurantList);
+        ArrayList<QueryResults > tempDealbreakers = parseJson(dealbreakerList);
 
-        System.out.println(tempRestaurants.size());
         //assign value to data member _restaurants
         if(tempRestaurants.size() == 1) {
-            for(Restaurant r : tempRestaurants.get(0)) {
-                _restaurants.add(r);
+            for(Restaurant r : tempRestaurants.get(0).getBusinesses()) {
+                if(!r.getIs_closed())
+                    _restaurants.put(r.getID(), r);
             }
         }
 
         else 
             intersection(tempRestaurants);
-
-        //System.out.println(_restaurants.size());
-
+           
+            
         //assign value to data member _dealbreakers
-        for(ArrayList<Restaurant> m : tempDealbreakers) {
-            for(Restaurant n : m) {
-                _dealbreakers.add(n);
+        for(QueryResults qr: tempDealbreakers) {
+            for(Restaurant r : qr.getBusinesses()) {
+                _dealbreakers.put(r.getID(), r);
             }
         }
 
-
         //build the final list of restaurants
-        HashSet<Restaurant> finalList = new HashSet<Restaurant>(_restaurants);
+        HashMap<String, Restaurant> finalList = new HashMap<String, Restaurant>(_restaurants);
 
-        for(Restaurant x : _dealbreakers) {
-            finalList.remove(x);    //removing the dealbreakers
+        for(Map.Entry<String, Restaurant>  x : _dealbreakers.entrySet()) {
+            finalList.remove(x.getKey());    //removing the dealbreakers
         }
 
         return finalList;
     }
 
     public static void main(String[] args) {
-        /*ArrayList<String> w = new ArrayList<String>();
+        //Tags the users want
+        ArrayList<String> w = new ArrayList<String>();
         w.add("burgers");
+
+        //Tags of the dealbreakers
         ArrayList<String> nw = new ArrayList<String>();
+        nw.add("easy street burgers");
 
 
         Tagging tagger = new Tagging(w, nw);
-        tagger.finalRestaurants();*/
 
-        YelpAPISearch search = new YelpAPISearch();
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("burgers");
-        ArrayList<String> jsons = search.getRestaurants(tags);
-        System.out.println(jsons.toString());
+        //Holds the Final Assortment of Restaurants
+        HashMap<String, Restaurant> last = tagger.finalRestaurants();
+
+        /*for(Map.Entry<String, Restaurant> e : last.entrySet()) {
+            System.out.println(e.getValue().toString());
+        }*/
     }
 }
 
