@@ -2,11 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>VerifyLogin</servlet-name>
-        <servlet-class>salgrub.VerifyLogin</servlet-class>
+        <servlet-class>baby.VerifyLogin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUp</servlet-name>
-        <servlet-class>salgrub.SignUp</servlet-class>
+        <servlet-class>baby.SignUp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VerifyLogin</servlet-name>
