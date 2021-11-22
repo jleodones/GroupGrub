@@ -18,7 +18,8 @@
                     console.log(xhttp.readyState);
                     var msg = this.responseText;
                     console.log(msg);
-                    if(msg == "y\n"){
+                    msg = msg.replace(/(\r\n|\n|\r)/gm,"");
+                    if(msg == "y"){
                         window.location.href = "Dummy/index.html";
                     }
                     else if(msg == "n\n"){
