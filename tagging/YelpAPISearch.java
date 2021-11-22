@@ -19,7 +19,7 @@ public class YelpAPISearch {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder().build();
             String builder = "https://api.yelp.com/v3/businesses/search" + "?term=" + tag +
-            "&location=" + location + "&radius=" + search_radius + "&limit=" + 3 +
+            "&location=" + location + "&radius=" + search_radius + "&limit=" + 50 +
             "&offset" + search_limit + "&open_now=true"; 
 
             Request request = new Request.Builder().url(builder).method("GET", null).addHeader(
