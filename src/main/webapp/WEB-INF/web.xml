@@ -14,7 +14,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUp</servlet-name>
-        <url-pattern>/SignUp</url-pattern>
+        <url-pattern>/Signup/SignUp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

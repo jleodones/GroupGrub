@@ -1,3 +1,5 @@
+package main.java.salgrub;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +10,12 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet("/signup")
-public class signup extends HttpServlet {
+public class SignUp extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	PrintWriter out = response.getWriter();
+    	out.println("yo");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
