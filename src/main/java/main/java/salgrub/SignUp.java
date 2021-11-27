@@ -21,6 +21,8 @@ public class SignUp extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        PrintWriter out = response.getWriter();
+        
         String name = request.getParameter("username");
         String pass = request.getParameter("password");
         
@@ -42,10 +44,12 @@ public class SignUp extends HttpServlet {
 			int i = ps.executeUpdate(); //the number of rows affected
 			if(i!=0) {
 				System.out.println("success"); 
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				//request.getRequestDispatcher("/index.jsp").forward(request, response);
+				out.println("y");
 			}
 
 		} catch (SQLException sqle) {
+			out.println("n");
 			System.out.println ("SQLException: " + sqle.getMessage());
 		}
     }

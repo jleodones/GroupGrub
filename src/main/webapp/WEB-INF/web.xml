@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- Servlet setup -->
     <servlet>
         <servlet-name>VerifyLogin</servlet-name>
         <servlet-class>main.java.salgrub.VerifyLogin</servlet-class>
@@ -8,6 +9,12 @@
         <servlet-name>SignUp</servlet-name>
         <servlet-class>main.java.salgrub.SignUp</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Validate</servlet-name>
+        <servlet-class>main.java.salgrub.Validate</servlet-class>
+    </servlet>
+    
+    <!-- Servlet mapping -->
     <servlet-mapping>
         <servlet-name>VerifyLogin</servlet-name>
         <url-pattern>/VerifyLogin</url-pattern>
@@ -16,6 +23,10 @@
         <servlet-name>SignUp</servlet-name>
         <url-pattern>/Signup/SignUp</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Validate</servlet-name>
+        <url-pattern>/Signup/Validate</url-pattern>
+    </servlet-mapping>    
     <session-config>
         <session-timeout>
             30
