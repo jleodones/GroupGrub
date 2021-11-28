@@ -1,0 +1,34 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@font-face {
+  font-family: Oswald-Regular;
+  src: url('/fonts/oswald/Oswald-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Oswald-Medium;
+  src: url('/fonts/oswald/Oswald-Medium.ttf'); 
+}
+
+@font-face {
+  font-family: Oswald-Bold;
+  src: url('/fonts/oswald/Oswald-Bold.ttf'); 
+}
+
+.column {
+	float: left;
+	position: relative;
+	width: 50%;
+	font-family: Oswald-Regular;
+	line-height: 1.2;
+	text-align: center;
+}
+
+.left {
+	background-color: #3287a8;
+}
+
+.right {
+	background-color: #a83232;
+}
