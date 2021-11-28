@@ -20,7 +20,8 @@
                     console.log(msg);
                     msg = msg.replace(/(\r\n|\n|\r)/gm,"");
                     if(msg == "y"){
-                        window.location.href = "Dummy/index.html";
+                		sessionStorage.username = document.myform.username.value;
+                        window.location.href = "Lobby/index.html";
                     }
                     else if(msg == "n"){
                         console.log("ok");

@@ -38,7 +38,8 @@
                     console.log(msg);
                     msg = msg.replace(/(\r\n|\n|\r)/gm,"");
                     if(msg == "y"){
-                        window.location.href = "/baby/Dummy/index.html";
+                		sessionStorage.username = document.myform.username.value;
+                        window.location.href = "/baby/Lobby/index.html";
                     }
                     else if(msg == "n"){
                     	document.getElementById("myMsg").innerHTML = "Something went wrong during signup. Try again.";
