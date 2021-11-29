@@ -1,15 +1,102 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Signup here!</title>
-</head>
-<body>
-<h1>Create username and password</h1>
-<form name="SignupForm" method="POST" action="SignUp">
-    Username: <input type="text" name="username"/> <br/>
-    Password: <input type="password" name="password"/> <br/>
-    <input type="submit" value="submit" />
-</form>
-</body>
+	<head>
+		<title>Sign Up</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="markup/css/util.css">
+		<link rel="stylesheet" type="text/css" href="markup/css/main.css">
+		
+		<script>
+			function validate(){
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "Validate", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function() {
+                    console.log(xhttp.readyState);
+                    var msg = this.responseText;
+                    console.log(msg);
+                    msg = msg.replace(/(\r\n|\n|\r)/gm,"");
+                    if(msg == "y"){
+                    	document.getElementById("myMsg").innerHTML = "Username already exists.";
+                    }
+                    else if(msg == "n"){
+                        signup();
+                    }
+                }
+                xhttp.send("username=" + document.myform.username.value);
+			}
+			function signup(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("POST", "SignUp", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function(){
+                    console.log(xhttp.readyState);
+                    var msg = this.responseText;
+                    console.log(msg);
+                    msg = msg.replace(/(\r\n|\n|\r)/gm,"");
+                    if(msg == "y"){
+                		sessionStorage.username = document.myform.username.value;
+                        window.location.href = "/baby/Lobby/index.html";
+                    }
+                    else if(msg == "n"){
+                    	document.getElementById("myMsg").innerHTML = "Something went wrong during signup. Try again.";
+                    }
+                }
+                xhttp.send("username=" + document.myform.username.value + "&password=" + document.myform.password.value);
+			}
+		</script>
+	</head>
+    <body>
+        <form name="myform">
+            <div class="limiter">
+                <div class="container-login100">
+                    <div class="wrap-login100 p-t-90 pb-30">
+                        <span class="login100-form-title p-b-40">
+                            Sign Up
+                        </span>
+                        
+                        <div class="wrap-input100 m-b-16">
+                            <input class="input100" type="text" name="username" placeholder="Username"/>
+                            <span class="focus-input100"></span>
+                        </div>
+                        
+                        <div class="wrap-input100 m-b-20">
+                            <span class="btn-show-pass">
+                            </span>
+                            <input class="input100" type="password" name="password" placeholder="Password"/>
+                            <span class="focus-input100"></span>
+                        </div>
+                        
+                        <div class="flex-col-c p-t-10 p-b-20" id="myMsg">
+                        </div>
+                        
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn" type="button" onclick="validate();">
+                                Sign Up
+                            </button>
+                        </div>
+                                    
+                        <div class="flex-col-c p-t-40">
+                            <span class="txt2 p-b-10">
+                                  <a href="/baby/" class="txt3 bo1 hov1">
+                                      Back to Login
+                                  </a>
+                            </span>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+        </form>
+    </body>
+<!-- 	<body>
+		<h1>Create username and password</h1>
+		<form name="SignupForm" method="POST" action="SignUp">
+		    Username: <input type="text" name="username"/> <br/>
+		    Password: <input type="password" name="password"/> <br/>
+		    <input type="submit" value="submit" />
+		</form>
+	</body> -->
 </html>

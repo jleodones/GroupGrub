@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Lobby</title>
+		<link rel="stylesheet" type="text/css" href="util.css">
+		<link rel="stylesheet" type="text/css" href="main.css">
+		
+		<script>
+			function makeid(length) {
+			    var result = '';
+			    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			    var charactersLength = characters.length;
+			    for ( var i = 0; i < length; i++ ) {
+			      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			   }
+			    return result;
+			}
+			function createGroup(){
+				var code = makeid(5);
+				var xhr = new XMLHttpRequest();
+                xhttp.open("GET", "lobby.jsp", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.send("code=" + code + "&username=" + sessionStorage.username + "&master=true");
+			}
+			function goToGroup(code){
+				var xhr = new XMLHttpRequest();
+                xhttp.open("GET", "lobby.jsp", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.send("code=" + code + "&username=" + sessionStorage.username + "&master=false");
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div class="column left">
+			Create a group?
+			<br/>
+			<button type="button" onclick="createGroup();">
+				Yes
+			</button>
+		</div>
+		<div class="column right">
+			Join a group?
+			<br/>
+			<input type="text" name="myCode"/>
+			<button type="button" onclick="goToGroup(document.myCode.value);">
+				Go!
+			</button>
+		</div>
+	</body>
+</html>
