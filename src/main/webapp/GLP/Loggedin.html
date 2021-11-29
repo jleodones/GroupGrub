@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Elite</title>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/glp.css">
+		
+	</head>
+	<body style = "background: #800085;">
+		<div class = "groupTags">
+			<div class = "tagCols" style= "float: left;"> 
+				<h2> Deal </h2>
+				
+				<div class = "navBar">
+					<input type="text" placeholder="Search.." id= "goodTag" style= "float: left;"/>
+					<button id="addItem" class = "button">Add</button>
+				</div>
+
+				<div class = "tagsWrapper"></div>
+
+				<div class="scrollbar" >
+					<ol id="goodList">
+						
+					</ol>
+				</div>
+				
+			</div><!-- each section has a title, a sticky search bar, and a page slider to slide down the list of tags -->
+			
+			<div class = "tagCols" style = "float: right;">
+				<h2> No Deal </h2>
+				<div class = "navBar">
+					<input type="text" placeholder="Search.." id= "badTag" style= "float: left;"/>
+					<button id="addItem" class = "button">Add</button>
+				</div>
+				
+				<div class = "tagsWrapper">
+				
+				</div>
+				
+				<div class="scrollbar">
+					<ol id="badList">
+						
+					</ol>
+				</div>
+			</div>
+		</div>
+		<script defer>
+			window.onload = (() => {
+				const byId = id => document.querySelector(`#${id}`); //selects by ID
+				const dealTag = byId("goodList"); //creates a list for deals
+				const nodealTag = byId("badList"); //creates a list const for noDeals
+
+				const appendListItem = (orderedList, itemTxt) => { //append list item 
+					let listItem = document.createElement("li"); //create a list item 
+					listItem.textContent = itemTxt; //list item set to given text
+					orderedList.appendChild(listItem);//adds to the list passec into the method
+				};
+
+				const addItem = () => {
+					const inputGood = byId("goodTag");
+					const inputBad = byId("badTag");
+					if(inputGood){
+						const val = inputGood.value.trim();
+						if (!val) { return alert("Please enter a valid Yelp tag"); }
+						goodTags.push(val);//fix so that if the tag is good it appears in the good list, else it appears in the bad list
+						appendListItem(dealTag, val);
+						inputGood.value = "";
+					}else if(inputBad){
+						const val = inputBad.value.trim();
+						if (!val) { return alert("Please enter a valid Yelp tag"); }
+						badTags.push(val);//fix so that if the tag is good it appears in the good list, else it appears in the bad list
+						appendListItem(nodealTag, val);
+						inputBad.value = "";
+					}
+				};
+				
+				// create good tags list
+				let goodTags = [];
+				goodTags.forEach(item => appendListItem(dealTag, item));
+
+				let badTags = [];
+				badTags.forEach(item => appendListItem(nodealTag, item));
+					
+				// add button handling
+				byId("addItem").addEventListener("click", addItem);
+			})();
+		</script>
+	</body>
+</html>
