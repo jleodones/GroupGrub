@@ -18,16 +18,11 @@
 			}
 			function createGroup(){
 				var code = makeid(5);
-				var xhr = new XMLHttpRequest();
-                xhttp.open("GET", "lobby.jsp", true);
-                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.send("code=" + code + "&username=" + sessionStorage.username + "&master=true");
+                window.location.href = "lobby.jsp?code=" + code + "&username=" + sessionStorage.username + "&master=true";
 			}
-			function goToGroup(code){
-				var xhr = new XMLHttpRequest();
-                xhttp.open("GET", "lobby.jsp", true);
-                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.send("code=" + code + "&username=" + sessionStorage.username + "&master=false");
+			function goToGroup(){
+				var code = document.joingroup.myCode.value;
+                window.location.href = "lobby.jsp?code=" + code + "&username=" + sessionStorage.username + "&master=false";
 			}
 		</script>
 		
@@ -40,13 +35,13 @@
 				Yes
 			</button>
 		</div>
-		<div class="column right">
+		<form name="joingroup" class="column right">
 			Join a group?
 			<br/>
 			<input type="text" name="myCode"/>
-			<button type="button" onclick="goToGroup(document.myCode.value);">
-				Go!
+			<button type="button" onclick="goToGroup();">
+				Join
 			</button>
-		</div>
+		</form>
 	</body>
 </html>
