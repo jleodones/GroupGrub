@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+.tagCols {
+	position: relative;
+	width: 50%;
+	display:block;
+	width:fit-content;
+	margin:auto;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	
+}
+
+.scrollbar{
+	background: #7a417c;
+}
+
+.navBar {
+	overflow: hidden;
+	width: fit-content;
+	float: left;
+}
+
+.scrollbar {
+	overflow: auto;
+	height: 300px;
+	width: 200px;
+	padding: 1em;
+	border:1px solid yellow;
+	
+}
+
+.groupTags{
+	padding-top: 3em;
+	display: block;
+	width: fit-content;
+	margin: auto;
+}
+
+.div{
+	position: relative;
+}
+
+h2{
+	width: fit-content;
+	margin: auto;
+}
+
+.button{
+	border-radius: 2px;
+	border: 2px solid #afa54c;
+	transition-duration: 0.4s;
+}
+
+.button:hover{
+	color: #b3af90;
+}
+
+
