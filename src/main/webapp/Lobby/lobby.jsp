@@ -40,7 +40,7 @@
 				address += location;
 				address += "/lobby"; */
 				
-				var address = "ws://localhost:8080/baby/lobby/" + "<%=code%>/" + "<%=username%>";
+				var address = "ws://" + window.location.host + "/baby/lobby/" + "<%=code%>/" + "<%=username%>";
 				console.log(address);
 				socket = new WebSocket(address);
 				
