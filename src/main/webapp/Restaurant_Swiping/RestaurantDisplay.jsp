@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="tagging.*"%>
+<%@page import="main.java.salgrub.tagging.*"%>
 <%@page import="java.util.*" %>
 <%@page import="javax.servlet.*" %>
 <%@page import="com.google.gson.Gson" %>
