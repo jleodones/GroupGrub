@@ -56,9 +56,9 @@
 
 		<script defer>
 			window.onload = (() => {
-				const byId = id => document.querySelector(`#${id}`); //selects by ID
-				const dealTag = byId("goodList"); //creates a list for deals
-				const nodealTag = byId("badList"); //creates a list const for noDeals
+				//const document.querySelector = id => document.querySelector(`#${id}`); //selects by ID
+				const dealTag = document.querySelector("#goodList"); //creates a list for deals
+				const nodealTag = document.querySelector("#badList"); //creates a list const for noDeals
 
 				const appendListItem = (theList, itemTxt) => { //append list item 
 					let listItem = document.createElement("li"); //create a list item 
@@ -67,7 +67,7 @@
 				};
 
 				const addGoodItem = () => { //adds items to list object
-					const inputGood = byId("goodTag");
+					const inputGood = document.querySelector("#goodTag");
 					
 					const val = inputGood.value.trim();
 
@@ -83,7 +83,7 @@
 				};
 
 				const addBadItem = () => { //adds items to list object
-					const inputBad = byId("badTag");
+					const inputBad = document.querySelector("#badTag");
 					
 					const val = inputBad.value.trim();
 
@@ -106,8 +106,8 @@
 				badTags.forEach(item => appendListItem(nodealTag, item));
 					
 				// add button handling
-				byId("addGItem").addEventListener("click", addGoodItem);
-				byId("addBItem").addEventListener("click", addBadItem);
+				document.querySelector("#addGItem").addEventListener("click", addGoodItem);
+				document.querySelector("#addBItem").addEventListener("click", addBadItem);
 			})();
 		</script>
 	</body>
