@@ -20,9 +20,6 @@
 		
 		<script>
 			var socket;
-			var code = <%=code%>;
-			var username = <%=username%>;
-			var master = <%=m%>;
 			
 			/* Displays the ready button depending on if the person is the master or not. */
 			function buttonHandle(){
