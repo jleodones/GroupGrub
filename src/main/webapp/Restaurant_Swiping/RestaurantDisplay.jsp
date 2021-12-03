@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD:src/main/webapp/restaurant/RestaurantDisplay.jsp
 <%@page import="main.java.salgrub.*"%>
-=======
 <%@page import="main.java.salgrub.tagging.*"%>
->>>>>>> 34c0d4d4bc37fcac307cc632146784a61f8a08f2:src/main/webapp/Restaurant_Swiping/RestaurantDisplay.jsp
 <%@page import="java.util.*" %>
 <%@page import="javax.servlet.*" %>
 <%@page import="com.google.gson.Gson" %>
