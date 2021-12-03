@@ -23,15 +23,12 @@ public class Room {
 	}
 	
 	public void displayUsers(Session s) {
-		String message = "Currently in lobby: ";
 		for(String username : sessions.keySet()) {
-			message += username + " ";
-		}
-		
-		try {
-			s.getBasicRemote().sendText(message);
-		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				s.getBasicRemote().sendText(username);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

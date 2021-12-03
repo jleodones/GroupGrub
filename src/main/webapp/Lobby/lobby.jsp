@@ -16,17 +16,25 @@
 		String m = request.getParameter("master");
 		System.out.println(m);
 		
-		boolean master;
-		if(m.equals("true")){
-			master = true;
-		}
-		else{
-			master = false;
-		}
 		%>
 		
 		<script>
 			var socket;
+			var code = <%=code%>;
+			var username = <%=username%>;
+			var master = <%=m%>;
+			
+			/* Displays the ready button depending on if the person is the master or not. */
+			function buttonHandle(){
+				if(<%=m.equals("false")%>){
+					console.log("false master");
+					document.getElementById("readyButton").style.display = "none";
+				}
+				else{
+					console.log("true master");
+				}
+			}
+
 			function connectToServer() {
 /* 				var address = "ws://";
 				var location = window.location.host + window.location.pathname
@@ -34,6 +42,7 @@
 				console.log(location);
 				address += location;
 				address += "/lobby"; */
+				
 				var address = "ws://localhost:8080/baby/lobby/" + "<%=code%>/" + "<%=username%>";
 				console.log(address);
 				socket = new WebSocket(address);
@@ -43,20 +52,39 @@
 				}
 				
 				socket.onmessage = function(event) {
-					document.getElementById("mylobby").innerHTML += event.data + "<br/>";
-				}
+					msg = event.data;
+                    msg = msg.replace(/(\r\n|\n|\r)/gm,"");
+                    
+					console.log(msg);
+					if(msg == "ready"){
+						window.location.href = "../GLP/Loggedin.jsp?code=<%=code%>&username=<%=username%>&master=<%=m%>";
 
+ 					}
+					else{
+						document.getElementById("mylobby").innerHTML += msg + "<br/>";
+					}
+				}
+				
 				socket.onclose = function(event) {
 					document.getElementById("mylobby").innerHTML += "Disconnected!";
 				}
 			}
+			
+			function move(){
+				console.log("yo");
+				socket.send("<%=code%>, ready");				
+			}
+			
 		</script>
 	</head>
-	<body onload="connectToServer()">	
+	<body onload="connectToServer(); buttonHandle();">	
 		<h1>Group code: <%= code %></h1>
 		<br/>
-		Currently in lobby:
-		<br/>
-		<div id="mylobby"></div>
+		<div id="mylobby">
+			Currently in lobby:
+		</div>
+		<button id="readyButton" type="button" onclick="move();">
+			Ready?
+		</button>
 	</body>
 </html>
