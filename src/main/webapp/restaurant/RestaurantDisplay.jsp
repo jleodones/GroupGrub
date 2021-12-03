@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="tagging.*"%>
+<%@page import="main.java.salgrub.*"%>
 <%@page import="java.util.*" %>
 <%@page import="javax.servlet.*" %>
 <%@page import="com.google.gson.Gson" %>
@@ -17,6 +17,26 @@
         var restPrice;
         var restDistance;
         
+        var socket;
+        
+		function connectToServer() {
+/* 				var address = "ws://";
+			var location = window.location.host + window.location.pathname
+							+ window.location.search;
+			console.log(location);
+			address += location;
+			address += "/lobby"; */
+			var address = "ws://localhost:8080/baby/swiping/" + "code/" + "username";
+
+			socket = new WebSocket(address);
+			
+			socket.onmessage = function(event) {
+				document.getElementById("restaurant_view").innerHTML = event.data + "<br/>";
+			}
+			
+			getRestaurants();
+		}
+		
         <%!
 	        public String listAsStr(ArrayList<String> restaurantStrings) {
 	        	StringBuffer sb = new StringBuffer();
@@ -93,31 +113,52 @@
         
         //loads new restaurant in the restaurant_view paragraph tag 
         function loadNewRestaurant() {
-        	if(restaurantCount < restName.length) {
+        	//restName.length
+        	if(restaurantCount < 10) {
             	document.getElementById("restaurant_view").innerHTML = restName[restaurantCount] + "<br>"
             	+ restID[restaurantCount] + "<br>" + restImg[restaurantCount] + "<br>"
             	+ restClosed[restaurantCount] + "<br>" + restRating[restaurantCount] + "<br>"
             	+ restPrice[restaurantCount] + "<br>" + restDistance[restaurantCount];
-            	
-            	restaurantCount += 1;
-            }
+                }
+        	else {
+        		displayResults();
+        	}
         }
         
         //loads new restaurant
-        function nextRestaurant() {
+        function yesRestaurant() {
+        	console.log(restaurantCount);
+        	
+        	restaurantCount += 1;
+        	socket.send(restID[restaurantCount-1]);
+        	//console.log("YES", restID[restaurantCount-1]);
+
             loadNewRestaurant();
         }
+        
+        function noRestaurant() {
+        	//console.log(restaurantCount);
+
+        	restaurantCount += 1;
+        	loadNewRestaurant();
+        }
+        
+        function displayResults() {
+        	socket.send("abcdefghijk");
+        }
+        
     </script>
     <head>
         <meta charset="UTF-8">
         <title>Restaurant Display</title>
     </head> 
-    <body onload="getRestaurants()">
+    <body onload="connectToServer()">
         <div>
             <p id="restaurant_view" onload="loadNewRestaurant()">
                 
             </p>
-            <button onclick="nextRestaurant()">ENTER</button>
+            <button onclick="yesRestaurant()">Yes</button>
+            <button onclick="noRestaurant()">No</button>
         </div>
     </body>
     
