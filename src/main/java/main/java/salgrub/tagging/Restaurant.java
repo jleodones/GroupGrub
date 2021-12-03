@@ -1,4 +1,4 @@
-package main.java.salgrub;
+package main.java.salgrub.tagging;
 
 public class Restaurant {
     private String name;

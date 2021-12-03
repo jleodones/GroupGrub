@@ -19,7 +19,7 @@ public class LobbyWaitingSocket {
 	@OnOpen
 	public void open(Session session, @PathParam("code") String code, @PathParam("username") String username) {
 		//Connection is made.
-		System.out.println("Connection made!");
+		System.out.println("Websocket connection made!");
 		sessionVector.add(session); //Add this session to overall list of sessions.
 		
 		//ADDING THE USERS TO A ROOM:
@@ -56,15 +56,18 @@ public class LobbyWaitingSocket {
 	public void broadcast(String message){
 		String[] m = message.split(",");
 		Room r = rooms.get(m[0]);
-		HashMap<String, Session> users = r.getSessions();
 		
+		HashMap<String, Session> users = r.getSessions();
+			
 		for(String x : users.keySet()) {
-			Session s = users.get(x);
 			try {
-				s.getBasicRemote().sendText(m[1] + " has joined!");
+				Session s = users.get(x);
+				s.getBasicRemote().sendText(m[1].trim());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Successful broadcast.");
 	}
 }
