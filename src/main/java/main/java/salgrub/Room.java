@@ -18,6 +18,14 @@ public class Room {
 		sessions.put(username, s);
 	}
 	
+	public void removeSession(String username) {
+		sessions.remove(username);
+	}
+	
+	public Integer getSize() {
+		return sessions.size();
+	}
+	
 	public HashMap<String, Session> getSessions(){
 		return sessions;
 	}
