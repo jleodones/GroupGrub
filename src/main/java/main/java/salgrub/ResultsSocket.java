@@ -89,7 +89,7 @@ public class ResultsSocket {
 				}
 		}
 		
-		else if(votes.containsKey(message))
+		else if(curr.containsKey(message))
 			votes.replace(message, votes.get(message)+1);
 		else
 			votes.put(message, Integer.valueOf(1));
