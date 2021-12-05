@@ -132,8 +132,9 @@
         				document.getElementById("header").style.visibility = visible;
         				document.getElementById("restaurant_view").innerHTML = "";
         			} else {
-        				localStorage.setItem("winningRestaurant",event.data);
-        				location.replace("WinningRestaurant.jsp");
+        				//localStorage.setItem("winningRestaurant",event.data);
+        				window.location.href = "WinningRestaurant.jsp?winner=" + event.data;
+        				//location.replace("WinningRestaurant.jsp");
         			}
         		}
         		displayResults();

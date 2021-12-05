@@ -37,6 +37,7 @@ public class ResultsSocket {
 			r = new Room(code);
 			r.addSession(username, session);
 			rooms.put(code, r);
+			votes.put(code,  new HashMap<String, Integer>());
 		}
 		//r.displayUsers(session);
 	}

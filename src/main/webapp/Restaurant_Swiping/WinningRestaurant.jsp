@@ -2,16 +2,15 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<%  String winner = request.getParameter("winner");
+		System.out.println(winner);
+	%>
 	<script language="javascript">
 		var winningRestaurant = "";
 		
-		function loadPage() {
-			winningRestaurant = localStorage.getItem("winningRestaurant");
-			localStorage.removeItem("winningRestaurant");
-		}
 		
 		function loadWinningRestaurant() {
-			document.getElementById("winning_restaurant").innerHTML = winningRestaurant;
+			document.getElementById("winning_restaurant").innerHTML = <%=winner%>;
 		}
 		
 	</script>
@@ -19,8 +18,9 @@
 <meta charset="UTF-8">
 <title>Winning Restaurant</title>
 </head>
-<body onload="loadPage()">
+<body onload="loadWinningRestaurant()">
 	<h1>The Winner of the CUM award is: </h1>
-	<p id="winning_restaurant" onload="loadWinningRestaurant()"></p>
+	<p id="winning_restaurant">
+	</p>
 </body>
 </html>
