@@ -10,8 +10,6 @@ import java.util.ArrayList;
 public class LoggedInUser extends User {
 	private PreparedStatement st1;
     private PreparedStatement st2; 
-    
-	private final ArrayList<String> dealBreakers; 
  
 	private String pastRestID; 
 	
@@ -48,7 +46,7 @@ public class LoggedInUser extends User {
             ResultSet rs2 = st2.executeQuery(); 
             while(rs2.next()) {	
             	String dealbreaker = rs2.getString(2); 
-            	dealBreakers.add(dealbreaker); 
+            	this.dealBreakers.add(dealbreaker); 
             }
 
         }catch(ClassNotFoundException cnfe){
@@ -63,16 +61,6 @@ public class LoggedInUser extends User {
 		
 		System.out.println(dealBreakers); 
 	}
-
-	
-//	public String getProfile() {
-//		
-//	}
-	
-	public ArrayList<String> getDealBreakers(){
-		return dealBreakers; 
-	}
-	
 	
 	
 }

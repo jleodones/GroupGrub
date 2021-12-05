@@ -42,7 +42,7 @@ public class Room {
 	public void setTags() {
 		for(User u : users) {
 			ArrayList <String> goodTags = u.getGoodTags();
-			ArrayList <String> badTags = u.getBadTags();
+			ArrayList <String> badTags = u.getDealbreakers();
 			for (String g : goodTags) {
 				good.add(g);
 			}

@@ -50,7 +50,6 @@ public class glpSocket {
 			r.addSession(username, session);
 			rooms.put(code, r);
 		}
-		//r.displayUsers(session);
 		
 	}
 	

@@ -10,16 +10,15 @@ import java.util.HashMap;
 
 public abstract class User{
 
-	private ArrayList<String> tags;
-	boolean isMaster; 
-	String username; 
-	HashMap<String, Long> location; //https://www.w3schools.com/html/html5_geolocation.asp
+	private boolean isMaster; 
+	public String username; 
+	private HashMap<String, Long> location; //https://www.w3schools.com/html/html5_geolocation.asp
+	public ArrayList<String> goodTags;
+	public ArrayList<String> dealBreakers;
+	
 	
 	User(String uname){
-		tags = new ArrayList<String>(); 
 		username = uname; 
-		
-		
 	}
 	
 	public HashMap<String, Long> getLocation(){
@@ -50,13 +49,6 @@ public abstract class User{
 		
 	}
 
-	public ArrayList<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(ArrayList<String> tags) {
-		this.tags = tags;
-	}
 
 	public boolean isMaster() {
 		return isMaster;
@@ -74,7 +66,20 @@ public abstract class User{
 		this.username = username;
 	}
 	
-
+	public void setGoodTags(ArrayList<String> tags) {
+		this.goodTags = tags;
+	}
 	
+	public ArrayList<String> getGoodTags() {
+		return goodTags;
+	}
+	
+	public ArrayList<String> getDealbreakers(){
+		return dealBreakers; 
+	}
+	
+	public void setDealbreakers (ArrayList<String> tags) {
+		this.dealBreakers.addAll(tags);
+	}
 	
 }
