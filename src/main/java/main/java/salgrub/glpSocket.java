@@ -1,4 +1,4 @@
-//package main.java.salgrub;
+package main.java.salgrub;
 
 import java.io.*;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.*;
 import javax.websocket.*;
 import javax.websocket.server.*;
 
-import org.apache.catalina.User;
+import main.java.salgrub.objects.*;
 
 @ServerEndpoint(value = "/lobby/{badTags}/{goodTags}/{code}")
 public class glpSocket {
@@ -27,14 +27,20 @@ public class glpSocket {
 		//ADDING THE USERS TO A ROOM:
 		//If exists, add to existing room.
 		Room r;
-		User user = new User("username"); 
-	
+		User user;
+		if(username.equals("Guest")){
+			user = new GuestUser(username);
+		}
+		else {
+			user = new LoggedInUser(username);
+		}
+
 		if(rooms.containsKey(code)) {
 			r = rooms.get(code);
 			String m = code + "," + username;
 			//broadcast(m);
-			user.setGoodTag(good);
-			user.setBadTags(bad); 
+//			user.setGoodTag(good);
+//			user.setBadTags(bad); 
 			r.addSession(username, session);
 			r.addUser(user);
 		}
@@ -60,5 +66,4 @@ public class glpSocket {
 		System.out.println("Error!");
 	}
 	
-}
 }

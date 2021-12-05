@@ -15,7 +15,7 @@ public abstract class User{
 	String username; 
 	HashMap<String, Long> location; //https://www.w3schools.com/html/html5_geolocation.asp
 	
-	public User(String uname){
+	User(String uname){
 		tags = new ArrayList<String>(); 
 		username = uname; 
 		
