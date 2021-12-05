@@ -11,9 +11,12 @@ public class Room {
 	
 	private String code;
 	private HashMap<String, Session> sessions = new HashMap<String, Session>();
-	private HashSet<String> good = new HashSet<String>();
-	private HashSet<String> bad = new HashSet<String>(); 
 	private ArrayList<User> users = new ArrayList<User>();
+	
+//	For final parsing.
+	private ArrayList<String> good = new ArrayList<String>();
+	private ArrayList<String> bad = new ArrayList<String>();
+	
 	
 	Room(String code){
 		this.code = code;
@@ -37,6 +40,15 @@ public class Room {
 
 	public void addUser(User user) {
 		users.add(user); 
+	}
+	
+	public User getUser(String username) {
+		for(User u : users) {
+			if(u.getUsername().equals(username)) {
+				return u;
+			}
+		}
+		return null;
 	}
 	
 	public void setTags() {

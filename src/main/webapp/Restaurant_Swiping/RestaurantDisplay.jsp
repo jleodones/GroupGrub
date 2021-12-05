@@ -21,13 +21,7 @@
         var socket;
         
 		function connectToServer() {
-/* 				var address = "ws://";
-			var location = window.location.host + window.location.pathname
-							+ window.location.search;
-			console.log(location);
-			address += location;
-			address += "/lobby"; */
-			var address = "ws://localhost:8080/baby/swiping/" + "code/" + "username";
+			var address = "ws://" + window.location.host + "baby/swiping/" + "code/" + "username";
 			
 			socket = new WebSocket(address);
 			console.log("Socket Initializing");

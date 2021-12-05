@@ -33,13 +33,6 @@
 			}
 
 			function connectToServer() {
-/* 				var address = "ws://";
-				var location = window.location.host + window.location.pathname
-								+ window.location.search;
-				console.log(location);
-				address += location;
-				address += "/lobby"; */
-				
 				var address = "ws://" + window.location.host + "/baby/lobby/" + "<%=code%>/" + "<%=username%>";
 				console.log(address);
 				socket = new WebSocket(address);

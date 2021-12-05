@@ -8,7 +8,7 @@ import javax.websocket.server.*;
 
 import main.java.salgrub.objects.*;
 
-@ServerEndpoint(value = "/lobby/{badTags}/{goodTags}/{code}")
+@ServerEndpoint(value = "/glp/{code}/{username}")
 public class glpSocket {
 
 	private static Vector<Session> sessionVector = new Vector<Session>();
@@ -19,9 +19,9 @@ public class glpSocket {
 	}
 	
 	@OnOpen
-	public void open(Session session, @PathParam("badTags") String[] bad, @PathParam("goodTags") String[] good, @PathParam("code") String code, @PathParam("username") String username) {
+	public void open(Session session, @PathParam("code") String code, @PathParam("username") String username) {
 		//Connection is made.
-		System.out.println("Websocket connection made!");
+		System.out.println("GLP connection made!");
 		sessionVector.add(session); //Add this session to overall list of sessions.
 		
 		//ADDING THE USERS TO A ROOM:
@@ -34,13 +34,10 @@ public class glpSocket {
 		else {
 			user = new LoggedInUser(username);
 		}
-
+		
 		if(rooms.containsKey(code)) {
 			r = rooms.get(code);
 			String m = code + "," + username;
-			//broadcast(m);
-//			user.setGoodTag(good);
-//			user.setBadTags(bad); 
 			r.addSession(username, session);
 			r.addUser(user);
 		}
@@ -48,6 +45,7 @@ public class glpSocket {
 		else {
 			r = new Room(code);
 			r.addSession(username, session);
+			r.addUser(user);
 			rooms.put(code, r);
 		}
 		
@@ -65,4 +63,66 @@ public class glpSocket {
 		System.out.println("Error!");
 	}
 	
+	@OnMessage
+	public void onMessage(String message, @PathParam("code") String code, @PathParam("username") String username) {
+		String[] myMsg = message.split(",");
+		
+		Integer command = Integer.parseInt(myMsg[0]);
+		
+		/* COMMANDS:
+		 * 1: ADD GOOD TAG
+		 * 2: REMOVE GOOD TAG
+		 * 3: ADD DEALBREAKER
+		 * 4: REMOVE DEALBREAKER
+		 */
+		
+		if(command == 1) {
+			addTag(myMsg[1], code, username, true);
+		}
+		else if(command == 2) {
+			removeTag(myMsg[1], code, username, true);
+		}
+		else if(command == 3) {
+			addTag(myMsg[1], code, username, false);
+		}
+		else if(command == 4) {
+			removeTag(myMsg[1], code, username, false);
+
+		}
+		else {
+			System.out.println("Bad command.");
+		}
+	}
+	
+	public void addTag(String tag, String code, String username, boolean good) {
+		
+		//Get the room and appropriate user.
+		Room r = rooms.get(code);
+		User user = r.getUser(username);
+		
+		//Add the tag to the user.
+		//Good specifies which tag list you are adding to.
+		if(good) {
+			user.addGoodTag(tag);
+		}
+		else {
+			user.addDealbreaker(tag);
+		}
+	}
+	
+	public void removeTag(String tag, String code, String username, boolean good) {
+		
+		//Get the room and appropriate user.
+		Room r = rooms.get(code);
+		User user = r.getUser(username);
+		
+		//Remove the tag from the user.
+		//Good specifies which tag list you are removing from.
+		if(good) {
+			user.removeGoodTag(tag);
+		}
+		else {
+			user.removeDealbreaker(tag);
+		}
+	}
 }

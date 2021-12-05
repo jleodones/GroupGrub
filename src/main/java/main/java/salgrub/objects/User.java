@@ -13,7 +13,7 @@ public abstract class User{
 	private boolean isMaster; 
 	public String username; 
 	private HashMap<String, Long> location; //https://www.w3schools.com/html/html5_geolocation.asp
-	public ArrayList<String> goodTags;
+	public ArrayList<String> goodTags = new ArrayList<String>();
 	public ArrayList<String> dealBreakers;
 	
 	
@@ -66,20 +66,39 @@ public abstract class User{
 		this.username = username;
 	}
 	
-	public void setGoodTags(ArrayList<String> tags) {
-		this.goodTags = tags;
+	//GOOD TAGS.
+	public void addGoodTag(String tag) {
+		this.goodTags.add(tag);
+	}
+	
+	public void removeGoodTag(String tag) {
+		for(String x : goodTags) {
+			if(x.equals(tag)) {
+				goodTags.remove(x);
+			}
+		}
 	}
 	
 	public ArrayList<String> getGoodTags() {
 		return goodTags;
 	}
 	
+	
+	//DEALBREAKERS.
+	public void addDealbreaker(String tag) {
+		this.dealBreakers.add(tag);
+	}
+	
+	public void removeDealbreaker(String tag) {
+		for(String x : dealBreakers) {
+			if(x.equals(tag)) {
+				dealBreakers.remove(x);
+			}
+		}
+	}
 	public ArrayList<String> getDealbreakers(){
 		return dealBreakers; 
 	}
 	
-	public void setDealbreakers (ArrayList<String> tags) {
-		this.dealBreakers.addAll(tags);
-	}
 	
 }
