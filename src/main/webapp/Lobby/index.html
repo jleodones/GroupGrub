@@ -38,23 +38,27 @@
 	</head>
 	<body>
 		<div class="column left">
-
-			<button type="button" onclick="createGroup();">
-				Create a Group?
-			</button>
+			<div class = "centered">
+				<button type="button" onclick="createGroup();">
+					Create a Group?
+				</button>
+			</div>
+			
 		</div>
 		<form name="joingroup" class="column right">
-			<button type="button" onclick="makeAppear();">
-				Join a group?
-			</button>
-			<br/>
+			<div class = "centered">
+				<button type="button" onclick="makeAppear();">
+					Join a group?
+				</button>
+				<br/>
+				
+			</div>
 			<div Id="join" style="display:none;">
 				<input type="text" name="myCode"/>
 				<button type="button" onclick="goToGroup();">
 					Join
 				</button>
 			</div>
-			
 		</form>
 	</body>
 </html>
