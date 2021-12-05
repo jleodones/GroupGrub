@@ -28,14 +28,16 @@
 			address += location;
 			address += "/lobby"; */
 			var address = "ws://localhost:8080/baby/swiping/" + "code/" + "username";
-
+			
 			socket = new WebSocket(address);
+			console.log("Socket Initializing");
 			
 			socket.onmessage = function(event) {
 				document.getElementById("restaurant_view").innerHTML = event.data + "<br/>";
 			}
 			
 			getRestaurants();
+			
 		}
 		
         <%!
@@ -122,6 +124,18 @@
             	+ restPrice[restaurantCount] + "<br>" + restDistance[restaurantCount];
                 }
         	else {
+        		console.log("Sending Results To Server")
+        		socket.onmessage = function(event) {
+        			console.log("test1");
+        			if (event.data == "Not Finished") {
+        				document.getElementByClassName("button").style.visibility = hidden;
+        				document.getElementById("header").style.visibility = visible;
+        				document.getElementById("restaurant_view").innerHTML = "";
+        			} else {
+        				localStorage.setItem("winningRestaurant",event.data);
+        				location.replace("WinningRestaurant.jsp");
+        			}
+        		}
         		displayResults();
         	}
         }
@@ -131,7 +145,8 @@
         	console.log(restaurantCount);
         	
         	restaurantCount += 1;
-        	socket.send(restID[restaurantCount-1]);
+        	var messageString = restID[restaurantCount-1] + ",code,username";
+        	socket.send(messageString);
         	//console.log("YES", restID[restaurantCount-1]);
 
             loadNewRestaurant();
@@ -145,7 +160,16 @@
         }
         
         function displayResults() {
-        	socket.send("abcdefghijk");
+        	if(socket.readyState === 1){
+        		console.log("ready")
+        	} 
+
+        	console.log("Sending to server socket abcdefg");
+        	socket.send("abcdefghijk,code,username");
+        }
+        
+        function loadHeader() {
+        	document.getElementById("header").style.visibility = "hidden";
         }
         
     </script>
@@ -155,11 +179,12 @@
     </head> 
     <body onload="connectToServer()">
         <div>
+        	<h1 id="header" style="display:none;"> Waiting For Everyone To Finish Cumming </h1>
             <p id="restaurant_view" onload="loadNewRestaurant()">
                 
             </p>
-            <button onclick="yesRestaurant()">Yes</button>
-            <button onclick="noRestaurant()">No</button>
+            <button onclick="yesRestaurant()" class="button">Yes</button>
+            <button onclick="noRestaurant()" class="button">No</button>
         </div>
     </body>
     

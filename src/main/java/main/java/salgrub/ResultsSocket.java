@@ -12,6 +12,9 @@ public class ResultsSocket {
 	private static Vector<Session> sessionVector = new Vector<Session>();
 	private static HashMap<String, HashMap<String, Integer>> votes = new HashMap<String, HashMap<String, Integer> >();
 	private static HashMap<String, Room> rooms = new HashMap<String, Room>();	//code, username, session
+	private static int finishedSwiping = 0;
+	private static int maxVote = 0;
+	private static String winner = "";
 
 	public int getCount() {
 		return sessionVector.size(); 
@@ -66,32 +69,52 @@ public class ResultsSocket {
 		System.out.println("Error!");
 	}
 	
-	/*@OnMessage
-	public void onMessage(String message, @PathParam("code") String code, @PathParam("username") String username ) {
+	@OnMessage
+	public void onMessage(String message) {
+		String[] list = message.split(",");
+		message = list[0];
+		String code = list[1];
+		String username = list[2];
+		
 		HashMap<String, Integer> curr = votes.get(code);
 		
+		System.out.println("Recieved Message");
+		System.out.println(message);
+		
 		if(message.equals("abcdefghijk")) {
-			Integer max = Integer.valueOf(0);
-			String winner = "";
 			for(Map.Entry<String, Integer> entry : curr.entrySet()) {
-				if (max < entry.getValue()) {
-					max = entry.getValue();
+				if (maxVote < entry.getValue()) {
+					maxVote = entry.getValue();
 					winner = entry.getKey();
 				}
 			}
+			
+			finishedSwiping += 1;
+			
+			//if all the rooms aren't finished, keep on going
+			if (finishedSwiping < sessionVector.size()) {
+				try {
+					for (Session s : sessionVector) {
+						s.getBasicRemote().sendText("Not Finished");
+					}
+				} catch (IOException ioe) {
+					System.out.println("ioe: " + ioe.getMessage());
+				}
+			} else {	//else send the winner
+				try {
+					for(Session s : sessionVector) {
+						s.getBasicRemote().sendText(winner);
+					}
 					
-			try {
-				for(Session s : sessionVector) {
-					s.getBasicRemote().sendText(winner);
+				} catch (IOException ioe) {
+					System.out.println("ioe: " + ioe.getMessage());
 				}
-			} catch (IOException ioe) {
-				System.out.println("ioe: " + ioe.getMessage());
-				}
+			}
 		}
 		
 		else if(curr.containsKey(message))
-			votes.replace(message, votes.get(message)+1);
+			curr.replace(message, curr.get(message) + 1);
 		else
-			votes.put(message, Integer.valueOf(1));
-	}*/
+			curr.put(message, Integer.valueOf(1));
+	}
 }
