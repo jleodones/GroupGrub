@@ -10,7 +10,7 @@
 		
 		
 		function loadWinningRestaurant() {
-			document.getElementById("winning_restaurant").innerHTML = <%=winner%>;
+			document.getElementById("winning_restaurant").innerHTML = "<%=winner%>";
 		}
 		
 	</script>
@@ -19,7 +19,7 @@
 <title>Winning Restaurant</title>
 </head>
 <body onload="loadWinningRestaurant()">
-	<h1>The Winner of the CUM award is: </h1>
+	<h1>The Winner is: </h1>
 	<p id="winning_restaurant">
 	</p>
 </body>
