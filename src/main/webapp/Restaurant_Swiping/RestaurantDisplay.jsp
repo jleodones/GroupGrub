@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="main.java.salgrub.*"%>
 <%@page import="main.java.salgrub.tagging.*"%>
 <%@page import="java.util.*" %>
 <%@page import="javax.servlet.*" %>
@@ -17,6 +18,28 @@
         var restPrice;
         var restDistance;
         
+        var socket;
+        
+		function connectToServer() {
+/* 				var address = "ws://";
+			var location = window.location.host + window.location.pathname
+							+ window.location.search;
+			console.log(location);
+			address += location;
+			address += "/lobby"; */
+			var address = "ws://localhost:8080/baby/swiping/" + "code/" + "username";
+			
+			socket = new WebSocket(address);
+			console.log("Socket Initializing");
+			
+			socket.onmessage = function(event) {
+				document.getElementById("restaurant_view").innerHTML = event.data + "<br/>";
+			}
+			
+			getRestaurants();
+			
+		}
+		
         <%!
 	        public String listAsStr(ArrayList<String> restaurantStrings) {
 	        	StringBuffer sb = new StringBuffer();
@@ -93,31 +116,76 @@
         
         //loads new restaurant in the restaurant_view paragraph tag 
         function loadNewRestaurant() {
-        	if(restaurantCount < restName.length) {
+        	//restName.length
+        	if(restaurantCount < 10) {
             	document.getElementById("restaurant_view").innerHTML = restName[restaurantCount] + "<br>"
             	+ restID[restaurantCount] + "<br>" + restImg[restaurantCount] + "<br>"
             	+ restClosed[restaurantCount] + "<br>" + restRating[restaurantCount] + "<br>"
             	+ restPrice[restaurantCount] + "<br>" + restDistance[restaurantCount];
-            	
-            	restaurantCount += 1;
-            }
+                }
+        	else {
+        		console.log("Sending Results To Server")
+        		socket.onmessage = function(event) {
+        			console.log("test1");
+        			if (event.data == "Not Finished") {
+        				document.getElementByClassName("button").style.visibility = hidden;
+        				document.getElementById("header").style.visibility = visible;
+        				document.getElementById("restaurant_view").innerHTML = "";
+        			} else {
+        				//localStorage.setItem("winningRestaurant",event.data);
+        				window.location.href = "WinningRestaurant.jsp?winner=" + event.data;
+        				//location.replace("WinningRestaurant.jsp");
+        			}
+        		}
+        		displayResults();
+        	}
         }
         
         //loads new restaurant
-        function nextRestaurant() {
+        function yesRestaurant() {
+        	console.log(restaurantCount);
+        	
+        	restaurantCount += 1;
+        	var messageString = restID[restaurantCount-1] + ",code,username";
+        	socket.send(messageString);
+        	//console.log("YES", restID[restaurantCount-1]);
+
             loadNewRestaurant();
         }
+        
+        function noRestaurant() {
+        	//console.log(restaurantCount);
+
+        	restaurantCount += 1;
+        	loadNewRestaurant();
+        }
+        
+        function displayResults() {
+        	if(socket.readyState === 1){
+        		console.log("ready")
+        	} 
+
+        	console.log("Sending to server socket abcdefg");
+        	socket.send("abcdefghijk,code,username");
+        }
+        
+        function loadHeader() {
+        	document.getElementById("header").style.visibility = "hidden";
+        }
+        
     </script>
     <head>
         <meta charset="UTF-8">
         <title>Restaurant Display</title>
     </head> 
-    <body onload="getRestaurants()">
+    <body onload="connectToServer()">
         <div>
+        	<h1 id="header" style="display:none;"> Waiting For Everyone To Finish Cumming </h1>
             <p id="restaurant_view" onload="loadNewRestaurant()">
                 
             </p>
-            <button onclick="nextRestaurant()">ENTER</button>
+            <button onclick="yesRestaurant()" class="button">Yes</button>
+            <button onclick="noRestaurant()" class="button">No</button>
         </div>
     </body>
     

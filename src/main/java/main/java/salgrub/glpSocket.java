@@ -6,8 +6,10 @@ import java.util.*;
 import javax.websocket.*;
 import javax.websocket.server.*;
 
-@ServerEndpoint(value = "/lobby/{code}/{username}")
-public class LobbyWaitingSocket {
+import main.java.salgrub.objects.*;
+
+@ServerEndpoint(value = "/lobby/{badTags}/{goodTags}/{code}")
+public class glpSocket {
 
 	private static Vector<Session> sessionVector = new Vector<Session>();
 	private static HashMap<String, Room> rooms = new HashMap<String, Room>();
@@ -17,7 +19,7 @@ public class LobbyWaitingSocket {
 	}
 	
 	@OnOpen
-	public void open(Session session, @PathParam("code") String code, @PathParam("username") String username) {
+	public void open(Session session, @PathParam("badTags") String[] bad, @PathParam("goodTags") String[] good, @PathParam("code") String code, @PathParam("username") String username) {
 		//Connection is made.
 		System.out.println("Websocket connection made!");
 		sessionVector.add(session); //Add this session to overall list of sessions.
@@ -25,11 +27,22 @@ public class LobbyWaitingSocket {
 		//ADDING THE USERS TO A ROOM:
 		//If exists, add to existing room.
 		Room r;
+		User user;
+		if(username.equals("Guest")){
+			user = new GuestUser(username);
+		}
+		else {
+			user = new LoggedInUser(username);
+		}
+
 		if(rooms.containsKey(code)) {
 			r = rooms.get(code);
 			String m = code + "," + username;
-			broadcast(m);
+			//broadcast(m);
+//			user.setGoodTag(good);
+//			user.setBadTags(bad); 
 			r.addSession(username, session);
+			r.addUser(user);
 		}
 		//If doesn't exist, create.
 		else {
@@ -37,7 +50,7 @@ public class LobbyWaitingSocket {
 			r.addSession(username, session);
 			rooms.put(code, r);
 		}
-		r.displayUsers(session);
+		
 	}
 	
 	@OnClose
@@ -52,22 +65,4 @@ public class LobbyWaitingSocket {
 		System.out.println("Error!");
 	}
 	
-	@OnMessage
-	public void broadcast(String message){
-		String[] m = message.split(",");
-		Room r = rooms.get(m[0]);
-		
-		HashMap<String, Session> users = r.getSessions();
-			
-		for(String x : users.keySet()) {
-			try {
-				Session s = users.get(x);
-				s.getBasicRemote().sendText(m[1].trim());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		System.out.println("Successful broadcast.");
-	}
 }
