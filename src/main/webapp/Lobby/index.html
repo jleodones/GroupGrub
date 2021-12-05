@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Lobby</title>
+		<title>Find Friends</title>
 		<link rel="stylesheet" type="text/css" href="util.css">
 		<link rel="stylesheet" type="text/css" href="main.css">
 		
@@ -25,24 +25,34 @@
 				var code = document.joingroup.myCode.value;
                 window.location.href = "lobby.jsp?code=" + code + "&username=" + sessionStorage.username + "&master=false";
 			}
+			function makeAppear(){
+				var x = document.getElementById("join");
+				if(x.style.display == "none"){
+					x.style.display = "block";
+				}
+			}
 		</script>
 		
 	</head>
 	<body>
 		<div class="column left">
-			Create a group?
-			<br/>
+
 			<button type="button" onclick="createGroup();">
-				Yes
+				Create a Group?
 			</button>
 		</div>
 		<form name="joingroup" class="column right">
-			Join a group?
-			<br/>
-			<input type="text" name="myCode"/>
-			<button type="button" onclick="goToGroup();">
-				Join
+			<button type="button" onclick="makeAppear();">
+				Join a group?
 			</button>
+			<br/>
+			<div Id="join" style="display:none;">
+				<input type="text" name="myCode"/>
+				<button type="button" onclick="goToGroup();">
+					Join
+				</button>
+			</div>
+			
 		</form>
 	</body>
 </html>
