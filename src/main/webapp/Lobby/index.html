@@ -7,8 +7,8 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/lobby.css">
 		
-		<script type="text/javascript" src="js/mouse.js"></script>
-		
+<!-- 		<script type="text/javascript" src="js/mouse.js"></script>
+ -->		
 		<script type="text/javascript">
 			function makeid(length) {
 			    var result = '';
@@ -21,6 +21,7 @@
 			}
 			function createGroup(){
 				var code = makeid(5);
+				console.log("hi");
                 window.location.href = "lobby.jsp?code=" + code + "&username=" + sessionStorage.username + "&master=true";
 			}
 			function goToGroup(){
@@ -40,17 +41,15 @@
 		<div class="column left">
 			<div class = "centered">
 				<button type="button" class="btn-1" onclick="createGroup();">
-					<a href=""><span>Create a Group?</span></a>
+					<a><span>Create a Group?</span></a>
 				</button>
 			</div>
 		</div>
 		<form name="joingroup" class="column right">
 			<div class = "centered">
 				<button type="button" class="btn-2" onclick="makeAppear();">
-					<a  class = "disabled"><span>Join a Group?</span></a>
-				</button>
-				
-				
+					<a class = "disabled"><span>Join a Group?</span></a>
+				</button>	
 			</div>
 			
 			<div Id="join" style="display:none;">
