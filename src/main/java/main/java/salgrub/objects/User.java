@@ -5,17 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap; 
+import java.util.*; 
 
 public abstract class User{
 
 	private boolean isMaster; 
 	public String username; 
 	private HashMap<String, Long> location; //https://www.w3schools.com/html/html5_geolocation.asp
-	public ArrayList<String> goodTags = new ArrayList<String>();
-	public ArrayList<String> dealBreakers;
-	
+	public HashSet<String> goodTags = new HashSet<String>();
+	public HashSet<String> dealBreakers;
+	private boolean finished;
 	
 	User(String uname){
 		username = uname; 
@@ -66,37 +65,44 @@ public abstract class User{
 		this.username = username;
 	}
 	
+	//FINISHED WITH TAGS?
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+	
+	public boolean getFinished() {
+		return finished;
+	}
+	
 	//GOOD TAGS.
 	public void addGoodTag(String tag) {
+		System.out.println("adding to good tags: " + tag);
+		tag = tag.toLowerCase();
 		this.goodTags.add(tag);
 	}
 	
 	public void removeGoodTag(String tag) {
-		for(String x : goodTags) {
-			if(x.equals(tag)) {
-				goodTags.remove(x);
-			}
-		}
+		tag = tag.toLowerCase();
+		goodTags.remove(tag);
 	}
 	
-	public ArrayList<String> getGoodTags() {
+	public HashSet<String> getGoodTags() {
 		return goodTags;
 	}
 	
 	
 	//DEALBREAKERS.
 	public void addDealbreaker(String tag) {
+		System.out.println("adding to bad tags: " + tag);
+		tag = tag.toLowerCase();
 		this.dealBreakers.add(tag);
 	}
 	
 	public void removeDealbreaker(String tag) {
-		for(String x : dealBreakers) {
-			if(x.equals(tag)) {
-				dealBreakers.remove(x);
-			}
-		}
+		tag = tag.toLowerCase();
+		dealBreakers.remove(tag);
 	}
-	public ArrayList<String> getDealbreakers(){
+	public HashSet<String> getDealbreakers(){
 		return dealBreakers; 
 	}
 	

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class LoggedInUser extends User {
 	private PreparedStatement st1;
@@ -15,7 +16,7 @@ public class LoggedInUser extends User {
 	
 	public LoggedInUser(String id) {
 		super(id);
-		dealBreakers = new ArrayList<String>(); 
+		dealBreakers = new HashSet<String>(); 
 			
 		//dealbreakers: read in from databse using jdbc 
 		try{

@@ -28,8 +28,6 @@ public class ResultsSocket {
 		Room r;
 		if(rooms.containsKey(code)) {
 			r = rooms.get(code);
-			//String m = code + "," + username;
-			//broadcast(m);
 			r.addSession(username, session);
 		}
 		//If doesn't exist, create.
@@ -37,12 +35,9 @@ public class ResultsSocket {
 			r = new Room(code);
 			r.addSession(username, session);
 			rooms.put(code, r);
-
 			votes.put(code,  new HashMap<String, Integer>());
-
-
 		}
-		//r.displayUsers(session);
+			
 	}
 	
 	@OnClose
@@ -74,11 +69,11 @@ public class ResultsSocket {
 	}
 	
 	@OnMessage
-	public void onMessage(String message) {
-		String[] list = message.split(",");
-		message = list[0];
-		String code = list[1];
-		String username = list[2];
+	public void onMessage(String message, @PathParam("code") String code, @PathParam("username") String username) {
+//		String[] list = message.split(",");
+//		message = list[0];
+//		String code = list[1];
+//		String username = list[2];
 		
 		HashMap<String, Integer> curr = votes.get(code);
 		
@@ -86,17 +81,19 @@ public class ResultsSocket {
 		System.out.println(message);
 		
 		if(message.equals("abcdefghijk")) {
+			System.out.println("yo");
 			for(Map.Entry<String, Integer> entry : curr.entrySet()) {
 				if (maxVote < entry.getValue()) {
 					maxVote = entry.getValue();
 					winner = entry.getKey();
 				}
 			}
+			Room r = rooms.get(code);
 			
 			finishedSwiping += 1;
 			
 			//if all the rooms aren't finished, keep on going
-			if (finishedSwiping < sessionVector.size()) {
+			if (finishedSwiping < r.getSessions().size()) {
 				try {
 					for (Session s : sessionVector) {
 						s.getBasicRemote().sendText("Not Finished");
@@ -107,6 +104,7 @@ public class ResultsSocket {
 			} else {	//else send the winner
 				try {
 					for(Session s : sessionVector) {
+						System.out.println(winner);
 						s.getBasicRemote().sendText(winner);
 					}
 					

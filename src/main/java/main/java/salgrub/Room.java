@@ -3,6 +3,8 @@ package main.java.salgrub;
 import java.io.*;
 import java.util.*;
 import javax.websocket.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import main.java.salgrub.objects.User; 
 
@@ -51,17 +53,8 @@ public class Room {
 		return null;
 	}
 	
-	public void setTags() {
-		for(User u : users) {
-			ArrayList <String> goodTags = u.getGoodTags();
-			ArrayList <String> badTags = u.getDealbreakers();
-			for (String g : goodTags) {
-				good.add(g);
-			}
-			for(String b : badTags) {
-				bad.add(b); 
-			}
-		}
+	public ArrayList<User> getUserList(){
+		return users;
 	}
 	
 	public void displayUsers(Session s) {
@@ -72,6 +65,45 @@ public class Room {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean isFinished() {
+		for(User u : users) {
+			if(!u.getFinished()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public void broadcast(String m) {
+		for(String s : sessions.keySet()) {
+			Session x = sessions.get(s);
+			try {
+				x.getBasicRemote().sendText(m);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public JSONObject giveMeTags() {
+		HashSet<String> good = new HashSet();
+		HashSet<String> bad = new HashSet();
+		
+		for(User u : users) {
+			good.addAll(u.getGoodTags());
+			bad.addAll(u.getDealbreakers());
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("good", good);
+		jsonObject.put("bad", bad);
+		
+		System.out.println(jsonObject.toString());
+		
+		return jsonObject;
 	}
 
 }
