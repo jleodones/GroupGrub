@@ -24,3 +24,11 @@
 	line-height: 1.2;
 	text-align: center;
 }
+
+.left {
+	background-color: #3287a8;
+}
+
+.right {
+	background-color: #a83232;
+}

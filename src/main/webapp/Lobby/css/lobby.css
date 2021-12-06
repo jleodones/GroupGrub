@@ -1,0 +1,156 @@
+@font-face {
+    font-family: Oswald-Regular;
+    src: url('/fonts/oswald/Oswald-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: Oswald-Medium;
+    src: url('/fonts/oswald/Oswald-Medium.ttf'); 
+}
+
+@font-face {
+    font-family: Oswald-Bold;
+    src: url('/fonts/oswald/Oswald-Bold.ttf'); 
+}
+
+.column{
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.right{
+    right: 0;
+    background-color: #8FB9A8;
+}
+
+.left{
+    left: 0;
+    background-color: #F1828D;
+}
+
+.centered{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.join{
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+span {
+    position: relative;
+    /* z-index coz when we put bg to before and after this span text will not be visible */
+    z-index: 3;
+}
+
+button{
+    border: none;
+    background-color: transparent;
+}
+
+.btn-1,
+.btn-2 {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btn-1 a,
+.btn-2 a {
+    text-decoration: none;
+    border: 2px solid #765D69;
+    padding: 15px;
+    color: #765D69;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+}
+
+.btn-1 a::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: -2px;
+    width: calc(100% + 6px);
+    /*100% plus double the times left values*/
+    height: calc(100% - 10px);
+    background-color: #F1828D;
+    transition: all 0.5s ease-in-out;
+    transform: scaleY(1);
+  }
+  
+  .btn-1 a:hover::before,
+  .btn-2 a:hover::before {
+    transform: scaleY(0);
+  }
+  
+  .btn-1 a::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: -5px;
+    width: calc(100% - 10px);
+    /*100% plus double the times left values*/
+    height: calc(100% + 10px);
+    background-color: #F1828D;
+    transition: all 0.5s ease-in-out;
+    transform: scaleX(1);
+  }
+  /* Created by http://grohit.com/  */
+  
+  .btn-1 a:hover::after,
+  .btn-2 a:hover::after {
+    transform: scaleX(0);
+  }
+  
+  /* Button 2 styles */
+  
+  .btn-2 a {
+    color: #8FB9A8;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .btn-2 a:hover {
+    color: #765D69;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .btn-2 a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #765D69;
+    transition: all 0.5s ease-in-out;
+    transform: scaleY(1);
+  }
+  
+  .btn-2 a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #765D69;
+    transition: all 0.5s ease-in-out;
+    transform: scaleX(1);
+  }
