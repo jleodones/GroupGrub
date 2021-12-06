@@ -24,8 +24,25 @@ public class LobbyWaitingSocket {
 		
 		//ADDING THE USERS TO A ROOM:
 		//If exists, add to existing room.
-		Room r;
-		if(rooms.containsKey(code)) {
+		Room r ;
+		if(username.equals("codeCheck")) {
+			if(rooms.containsKey(code)) {
+				try {
+					session.getBasicRemote().sendText("ye");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else {
+				
+				try {
+					session.getBasicRemote().sendText("ne");
+				} catch (IOException e) {
+					e.printStackTrace();
+				} 		
+			}
+			return; 
+		}
+		if(rooms.containsKey(code) ) {
 			r = rooms.get(code);
 			String m = code + "," + username;
 			broadcast(m);

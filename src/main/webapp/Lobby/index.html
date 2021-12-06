@@ -10,6 +10,27 @@
 		<script type="text/javascript" src="js/mouse.js"></script>	
 		
 		<script type="text/javascript">
+			function checkCode(){
+				var code = document.joingroup.myCode.value;
+
+				var address = "ws://" + window.location.host + "/baby/lobby/" + code + "/codeCheck" ;
+				console.log(address);
+				socket = new WebSocket(address);
+				
+				socket.onmessage = function(event){
+					msg = event.data; 
+					console.log(msg);
+					if(msg == "ne"){
+						return alert("Invalid room code.");
+						
+					}else if(msg == "ye"){
+						goToGroup(code); 
+					}
+				} 
+				
+				
+			}
+
 			function makeid(length) {
 			    var result = '';
 			    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -24,8 +45,7 @@
 				console.log("hi");
                 window.location.href = "lobby.jsp?code=" + code + "&username=" + sessionStorage.username + "&master=true";
 			}
-			function goToGroup(){
-				var code = document.joingroup.myCode.value;
+			function goToGroup(code){							
                 window.location.href = "lobby.jsp?code=" + code + "&username=" + sessionStorage.username + "&master=false";
 			}
 			function makeAppear(){
@@ -54,7 +74,9 @@
 			
 			<div Id="join" style="display:none;">
 				<input type="text" name="myCode"/>
-				<button type="button" onclick="goToGroup();">
+				
+				
+				<button type="button" onclick="checkCode();">
 					Join
 				</button>
 			</div>
