@@ -43,6 +43,9 @@
                 		sessionStorage.username = document.myform.username.value;
                         window.location.href = "/baby/Lobby/index.html";
                     }
+                    else if(msg == "x"){
+                    	document.getElementById("myMsg").innerHTML = "Not all fields filled out.";
+                    }
                     else if(msg == "n"){
                     	document.getElementById("myMsg").innerHTML = "Something went wrong during signup. Try again.";
                     }
