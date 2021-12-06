@@ -39,20 +39,20 @@
 	<body>
 		<div class="column left">
 			<div class = "centered">
-				<button type="button" onclick="createGroup();">
-					Create a Group?
+				<button type="button" class="btn-1" onclick="createGroup();">
+					<a href=""><span>Create a Group?</span></a>
 				</button>
 			</div>
-			
 		</div>
 		<form name="joingroup" class="column right">
 			<div class = "centered">
-				<button type="button" onclick="makeAppear();">
-					Join a group?
+				<button type="button" class="btn-2" onclick="makeAppear();">
+					<a  class = "disabled"><span>Join a Group?</span></a>
 				</button>
-				<br/>
+				
 				
 			</div>
+			
 			<div Id="join" style="display:none;">
 				<input type="text" name="myCode"/>
 				<button type="button" onclick="goToGroup();">
