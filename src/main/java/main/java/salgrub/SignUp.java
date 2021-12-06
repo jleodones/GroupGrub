@@ -26,6 +26,11 @@ public class SignUp extends HttpServlet {
         String name = request.getParameter("username");
         String pass = request.getParameter("password");
         
+        if(name.isEmpty() || pass.isEmpty()) {
+        	out.println("x");
+        	System.out.println("empty uname/pword trigger");
+        	return; 
+        }
         
         String db = "jdbc:mysql://salgrub.cj3xrat8scfk.us-west-1.rds.amazonaws.com:3306/salgrub";
 		String user = "jleodones";
