@@ -5,11 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class Tagger {
-    /*
-     * TODO: 
-     * - work with ashley + jamie to get tags and dealbreakers
-     * - error checking
-    */
 
     //List of tags and dealbreakers that will be provided
     private ArrayList<String> _wantTags;
@@ -25,10 +20,11 @@ public class Tagger {
     private static YelpAPISearch yelp;
 
     //
-    public Tagger(ArrayList<String> want, ArrayList<String> noWant) {
+    public Tagger(ArrayList<String> want, ArrayList<String> noWant, double latitude, double longitude) {
         this._wantTags = want;
         this._noWantTags = noWant;
         yelp = new YelpAPISearch();
+        yelp.SetLocation(latitude, longitude);
     }
     
     public HashMap<String, Restaurant> getFinalList() {
@@ -125,25 +121,5 @@ public class Tagger {
         
         return fl;
     }
-
-    /*public static void main(String[] args) {
-        //Tags the users want
-        ArrayList<String> w = new ArrayList<String>();
-        w.add("burgers");
-
-        //Tags of the dealbreakers
-        ArrayList<String> nw = new ArrayList<String>();
-        nw.add("easy street burgers");
-
-
-        Tagger tagger = new Tagger(w, nw);
-
-        //Holds the Final Assortment of Restaurants
-        HashMap<String, Restaurant> last = tagger.finalRestaurants();
-
-        /*for(Map.Entry<String, Restaurant> e : last.entrySet()) {
-            System.out.println(e.getValue().toString());
-        }
-    }*/
 }
 

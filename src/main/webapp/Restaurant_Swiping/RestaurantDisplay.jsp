@@ -62,6 +62,8 @@
                 
                 ArrayList<String> want = new ArrayList<String>();
            		ArrayList<String> noWant = new ArrayList<String>();
+           		String latString;
+           		String longString;
 
 /*            		want.add("hamburgers");   
                 noWant.add("fish"); */
@@ -71,6 +73,11 @@
                 JSONObject jsnobject = new JSONObject(encoded);  
                 JSONArray goodArray = jsnobject.getJSONArray("good");
                 JSONArray badArray = jsnobject.getJSONArray("bad");
+                String myLat = jsnobject.getString("latitude");
+                String myLong = jsnobject.getString("longitude");
+                
+                Double latitude = Double.parseDouble(myLat);
+                Double longitude = Double.parseDouble(myLong);
                 
                 for(int i = 0; i < goodArray.length(); i++){
                 	want.add(goodArray.getString(i));
@@ -84,7 +91,7 @@
                 System.out.println("No want: " + noWant.toString());
 
                 
-                Tagger tag = new Tagger(want, noWant);
+                Tagger tag = new Tagger(want, noWant, latitude, longitude);
                 
                 ArrayList<Restaurant> restaurants = tag.finalRestaurants(); 
                 

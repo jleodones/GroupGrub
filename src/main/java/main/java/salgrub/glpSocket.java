@@ -79,14 +79,17 @@ public class glpSocket {
 	@OnMessage
 	public void onMessage(String message, @PathParam("code") String code, @PathParam("username") String username) {
 		
+		//Grab the message.
 		System.out.println(message);
-	
-		if(message.equals("done")) {
+		
+		String[] myMsg = message.split(",");
+		
+		if(myMsg[0].equals("done")) {
 			finish(message, code, username);
 		}
-		else if(message.equals("datapls")) {
+		else if(myMsg[0].equals("datapls")) {
 			Room r = rooms.get(code);
-			JSONObject obj = r.giveMeTags();
+			JSONObject obj = r.giveMeTags(myMsg[1], myMsg[2]);
 			
 			//Send the obj to the master user in the session.
 			for(User u : r.getUserList()) {

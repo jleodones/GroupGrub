@@ -88,7 +88,7 @@ public class Room {
 		}
 	}
 	
-	public JSONObject giveMeTags() {
+	public JSONObject giveMeTags(String latitude, String longitude) {
 		HashSet<String> good = new HashSet();
 		HashSet<String> bad = new HashSet();
 		
@@ -100,6 +100,8 @@ public class Room {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("good", good);
 		jsonObject.put("bad", bad);
+		jsonObject.put("latitude", latitude);
+		jsonObject.put("longitude", longitude);
 		
 		System.out.println(jsonObject.toString());
 		

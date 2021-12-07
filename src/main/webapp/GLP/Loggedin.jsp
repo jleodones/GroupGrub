@@ -75,6 +75,24 @@
 				console.log(address);
 				socket = new WebSocket(address);
 				
+				var lat;
+				var longitude;
+				
+				if(<%=master%> === true){
+					if(navigator.geolocation){
+						navigator.geolocation.getCurrentPosition(showPosition);
+					}
+					else{
+						lat = null;
+						longitude = null;
+					}
+				}
+				
+				function showPosition(position) {
+						lat = position.coords.latitude
+						longitude = position.coords.longitude;
+				}
+				
 				socket.onmessage = function(event) {
 					msg = event.data;
                     msg = msg.replace(/(\r\n|\n|\r)/gm,"");
@@ -82,7 +100,9 @@
 					console.log(msg);
 					if(msg == "finished"){
 						if(<%=master%> === true){
-							socket.send("datapls");
+							var mymsg = "datapls,";
+							mymsg += lat + "," + longitude;
+							socket.send(mymsg);
 						}
 						else{
 							moveOn();
