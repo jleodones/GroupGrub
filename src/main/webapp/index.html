@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Welcome to Group Grub!</title>
+        <title>Welcome to Group Grub! </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -24,15 +24,16 @@
                         window.location.href = "Lobby/index.html";
                     }
                     else if(msg == "n"){
-                        console.log("ok");
+                        console.log("bad");
                         document.getElementById("myMsg").innerHTML = "Username or password incorrect.";
                     }
                 }
                 xhttp.send("username=" + document.myform.username.value + "&password=" + document.myform.password.value);
-            };
+            }
             
             function guestProceed(){
             	sessionStorage.username = "Guest";
+            	console.log("guest login");
                 window.location.href = "Lobby/index.html";
             }
         </script>
@@ -75,13 +76,12 @@
                                 </a>
                         </div>
                                     
-                        <div class="flex-col-c p-t-40" onclick="guestProceed()">
-                            <span class="txt2 p-b-10">
-                                  <a class="txt3 bo1 hov1">
-                                      Proceed as guest?
-                                  </a>
-                            </span>
-	                    </div>
+                        <div class="flex-col-c p-t-20">
+                            <button class="txt3 bo1 hov1" type="button" onclick="guestProceed();">
+                                Proceed as Guest?
+                            </button>
+                        </div>
+                        
 	                </div>
 	            </div>
             </div>
