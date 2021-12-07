@@ -104,20 +104,23 @@ public class ResultsSocket {
 			json.put("winners", winners);
 			System.out.println("My winners pt 2: " + json.toString());
 						
-			finishedSwiping += 1;
-			
-			//if all the rooms aren't finished, keep on going
 			Room r = rooms.get(code);
-			if (finishedSwiping < r.getSessions().size()) {
+			r.someoneFinished();
+			
+			//if all the users aren't finished, keep on going
+			if (!r.everyoneReady()) {
 				r.broadcast("no", username);
 			} else {	//else send the winner
 				r.broadcastAll(json.toString());
 			}
 		}
-		
-		else if(curr.containsKey(message))
+		else if(curr.containsKey(message)) {
+			System.out.println("Old vote count: " + curr.get(message));
 			curr.replace(message, curr.get(message) + 1);
-		else
+			System.out.println("New vote count: " + curr.get(message));
+		}
+		else {
 			curr.put(message, Integer.valueOf(1));
+		}
 	}
 }

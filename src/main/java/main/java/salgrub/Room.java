@@ -19,6 +19,7 @@ public class Room {
 	private ArrayList<String> good = new ArrayList<String>();
 	private ArrayList<String> bad = new ArrayList<String>();
 	
+	private int finishedSwiping = 0;	
 	
 	Room(String code){
 		this.code = code;
@@ -117,6 +118,17 @@ public class Room {
 		System.out.println(jsonObject.toString());
 		
 		return jsonObject;
+	}
+	
+	public void someoneFinished() {
+		finishedSwiping += 1;
+	}
+	
+	public boolean everyoneReady() {
+		if(finishedSwiping >= users.size()) {
+			return true;
+		}
+		return false;
 	}
 
 }
