@@ -90,7 +90,7 @@ public class glpSocket {
 			Room r = rooms.get(code);
 			JSONObject obj = r.giveMeTags(myMsg[1], myMsg[2]);
 			
-			//Send the obj to the master user in the session.
+			//Send the object to the master user in the session.
 			for(User u : r.getUserList()) {
 				System.out.println("Sending my data to... " + u.getUsername());
 				r.broadcastAll(obj.toString());

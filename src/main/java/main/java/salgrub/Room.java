@@ -102,8 +102,10 @@ public class Room {
 		HashSet<String> bad = new HashSet();
 		
 		for(User u : users) {
-			good.addAll(u.getGoodTags());
-			bad.addAll(u.getDealbreakers());
+			if(u.getGoodTags() != null)
+				good.addAll(u.getGoodTags());
+			if(u.getDealbreakers() != null)
+				bad.addAll(u.getDealbreakers());
 		}
 		
 		JSONObject jsonObject = new JSONObject();
