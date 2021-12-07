@@ -4,9 +4,19 @@
 <%@page import="main.java.salgrub.tagging.*"%>
 <%@page import="java.util.*" %>
 <%@page import="javax.servlet.*" %>
-<%@page import="com.google.gson.Gson" %>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="org.json.*" %>
+
 <!DOCTYPE html>
 <html>
+
+	<%
+	String code = request.getParameter("code");
+	String username = request.getParameter("username");
+	String master = request.getParameter("master");
+	String encoded = request.getParameter("data");
+	%>
+		
 	<script language="javascript">
         var restaurantCount = 0;
         
@@ -21,17 +31,11 @@
         var socket;
         
 		function connectToServer() {
-			var address = "ws://" + window.location.host + "baby/swiping/" + "code/" + "username";
+			var address = "ws://" + window.location.host + "/baby/swiping/" + "<%=code%>/" + "<%=username%>";
 			
 			socket = new WebSocket(address);
 			console.log("Socket Initializing");
-			
-			socket.onmessage = function(event) {
-				document.getElementById("restaurant_view").innerHTML = event.data + "<br/>";
-			}
-			
 			getRestaurants();
-			
 		}
 		
         <%!
@@ -55,13 +59,39 @@
                 /*
                 Gets the list of restaurants according to the tags 
                 */
+                
                 ArrayList<String> want = new ArrayList<String>();
-                want.add("hamburgers");
+           		ArrayList<String> noWant = new ArrayList<String>();
+           		String latString;
+           		String longString;
+
+/*            		want.add("hamburgers");   
+                noWant.add("fish"); */
                 
-                ArrayList<String> noWant = new ArrayList<String>();
-                noWant.add("fish");
+                System.out.println("Encoded: " + encoded);
                 
-                Tagger tag = new Tagger(want, noWant);
+                JSONObject jsnobject = new JSONObject(encoded);  
+                JSONArray goodArray = jsnobject.getJSONArray("good");
+                JSONArray badArray = jsnobject.getJSONArray("bad");
+                String myLat = jsnobject.getString("latitude");
+                String myLong = jsnobject.getString("longitude");
+                
+                Double latitude = Double.parseDouble(myLat);
+                Double longitude = Double.parseDouble(myLong);
+                
+                for(int i = 0; i < goodArray.length(); i++){
+                	want.add(goodArray.getString(i));
+                }
+                
+                for(int i = 0; i < badArray.length(); i++){
+                	noWant.add(badArray.getString(i));
+                }
+                
+                System.out.println("Want: " + want.toString());
+                System.out.println("No want: " + noWant.toString());
+
+                
+                Tagger tag = new Tagger(want, noWant, latitude, longitude);
                 
                 ArrayList<Restaurant> restaurants = tag.finalRestaurants(); 
                 
@@ -122,8 +152,8 @@
         		socket.onmessage = function(event) {
         			console.log("test1");
         			if (event.data == "Not Finished") {
-        				document.getElementByClassName("button").style.visibility = hidden;
-        				document.getElementById("header").style.visibility = visible;
+        				document.getElementByClassName("button").style.visibility = "hidden";
+        				document.getElementById("header").style.visibility = "visible";
         				document.getElementById("restaurant_view").innerHTML = "";
         			} else {
         				//localStorage.setItem("winningRestaurant",event.data);
@@ -140,7 +170,7 @@
         	console.log(restaurantCount);
         	
         	restaurantCount += 1;
-        	var messageString = restID[restaurantCount-1] + ",code,username";
+        	var messageString = restID[restaurantCount-1];
         	socket.send(messageString);
         	//console.log("YES", restID[restaurantCount-1]);
 
@@ -160,7 +190,7 @@
         	} 
 
         	console.log("Sending to server socket abcdefg");
-        	socket.send("abcdefghijk,code,username");
+        	socket.send("abcdefghijk");
         }
         
         function loadHeader() {
@@ -174,7 +204,7 @@
     </head> 
     <body onload="connectToServer()">
         <div>
-        	<h1 id="header" style="display:none;"> Waiting For Everyone To Finish Cumming </h1>
+        	<h1 id="header" style="display:none;"> Waiting For Everyone To Finish </h1>
             <p id="restaurant_view" onload="loadNewRestaurant()">
                 
             </p>

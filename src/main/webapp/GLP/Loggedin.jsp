@@ -16,11 +16,11 @@
 		<%
 		String code = request.getParameter("code");
 		String username = request.getParameter("username");
-		String m = request.getParameter("m");
+		String master = request.getParameter("master");
 		%>
-			
+		
 	</head>
-	<body style = "background: #AB8CB5;" onload="onLoad();">
+	<body style = "background: #AB8CB5;">
 		
 		<div class = "groupTags">
 			<div class = "tagCols" style= "float: left;"> 
@@ -58,14 +58,70 @@
 					</ol>
 				</div>
 			</div>
+			
+			<div id="waiting"></div>
+			
+			<button type="button" id="finishedButton">
+				Finished?
+			</button>
+			
 		</div>
 		
 		<script defer>
 			window.onload = (() => {
+				var data;
 				var socket;
-				var address = "ws://" + window.location.host + "/baby/glp/" + "<%=code%>" + "/<%=username%>";
+				var address = "ws://" + window.location.host + "/baby/glp/" + "<%=code%>/<%=username%>/<%=master%>";
 				console.log(address);
 				socket = new WebSocket(address);
+				
+				var lat;
+				var longitude;
+				
+				if(<%=master%> === true){
+					if(navigator.geolocation){
+						navigator.geolocation.getCurrentPosition(showPosition);
+					}
+					else{
+						lat = null;
+						longitude = null;
+					}
+				}
+				
+				function showPosition(position) {
+						lat = position.coords.latitude
+						longitude = position.coords.longitude;
+				}
+				
+				socket.onmessage = function(event) {
+					msg = event.data;
+                    msg = msg.replace(/(\r\n|\n|\r)/gm,"");
+                    
+					console.log(msg);
+					if(msg == "finished"){
+						if(<%=master%> === true){
+							var mymsg = "datapls,";
+							mymsg += lat + "," + longitude;
+							socket.send(mymsg);
+						}
+						else{
+							moveOn();
+						}
+ 					}
+					else if(msg == "wait"){
+						document.getElementById("waiting").innerHTML += "Waiting" + "<br/>";
+					}
+					else{ //Requested data has been received.
+						var x = JSON.parse(event.data);
+						var array = JSON.stringify(x);
+/* 						console.log(x);
+						console.log("x URI: " + encodeURIComponent(x));
+						console.log("array URI: " + encodeURIComponent(array)); */
+						data = encodeURIComponent(array);
+/*  						console.log("first data: " + data);
+ */						moveOn();
+					}
+				}
 				
 				const addGoodTag = (tag) => {
 					var message = "1,";
@@ -73,13 +129,25 @@
 					socket.send(message);
 				}
 				
-				const addDealbreaker = (tag) =>{
+				const addDealbreaker = (tag) => {
 					var message = "3,";
 					message += tag;
 					socket.send(message);
 				}
 				
-				//const document.querySelector = id => document.querySelector(`#${id}`); //selects by ID
+				const sendFinish = () => {
+					console.log("hang tight!");
+					socket.send("done");
+				}
+				
+				const moveOn = () => {
+					var url = "../Restaurant_Swiping/RestaurantDisplay.jsp?code=<%=code%>&username=<%=username%>&master=<%=master%>&data=";
+					url += data;
+/* 					console.log("data again: " + data);
+					console.log(url); */
+					window.location.href = url;
+				}
+				
 				const dealTag = document.querySelector("#goodList"); //creates a list for deals
 				const nodealTag = document.querySelector("#badList"); //creates a list const for noDeals
 
@@ -100,6 +168,7 @@
 						goodTags.push(val);//fix so that if the tag is good it appears in the good list, else it appears in the bad list
 						appendListItem(dealTag, val);
 						inputGood.value = "";
+						addGoodTag(val);
 					}else{
 						return alert("Oops! No duplicates!");
 					}
@@ -116,6 +185,7 @@
 						badTags.push(val);//fix so that if the tag is good it appears in the good list, else it appears in the bad list
 						appendListItem(nodealTag, val);
 						inputBad.value = "";
+						addDealbreaker(val);
 					}else{
 						return alert("Oops! No duplicates!");//if there is a duplicate tag it will not be added
 					}
@@ -131,6 +201,7 @@
 				// add button handling
 				document.querySelector("#addGItem").addEventListener("click", addGoodItem);
 				document.querySelector("#addBItem").addEventListener("click", addBadItem);
+				document.querySelector("#finishedButton").addEventListener("click", sendFinish);
 			})();
 		</script>
 		

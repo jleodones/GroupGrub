@@ -6,9 +6,11 @@ import java.util.*;
 import javax.websocket.*;
 import javax.websocket.server.*;
 
+import org.json.JSONObject;
+
 import main.java.salgrub.objects.*;
 
-@ServerEndpoint(value = "/glp/{code}/{username}")
+@ServerEndpoint(value = "/glp/{code}/{username}/{master}")
 public class glpSocket {
 
 	private static Vector<Session> sessionVector = new Vector<Session>();
@@ -19,7 +21,7 @@ public class glpSocket {
 	}
 	
 	@OnOpen
-	public void open(Session session, @PathParam("code") String code, @PathParam("username") String username) {
+	public void open(Session session, @PathParam("code") String code, @PathParam("username") String username, @PathParam("master") String mas) {
 		//Connection is made.
 		System.out.println("GLP connection made!");
 		sessionVector.add(session); //Add this session to overall list of sessions.
@@ -28,11 +30,22 @@ public class glpSocket {
 		//If exists, add to existing room.
 		Room r;
 		User user;
+		Boolean master;
+		
+		if(mas.equals("true")) {
+			master = true;
+		}
+		else {
+			master = false;
+		}
+		//Instantiating user.
 		if(username.equals("Guest")){
 			user = new GuestUser(username);
+			user.setMaster(master);
 		}
 		else {
 			user = new LoggedInUser(username);
+			user.setMaster(master);
 		}
 		
 		if(rooms.containsKey(code)) {
@@ -65,7 +78,51 @@ public class glpSocket {
 	
 	@OnMessage
 	public void onMessage(String message, @PathParam("code") String code, @PathParam("username") String username) {
+		
+		//Grab the message.
+		System.out.println(message);
+		
 		String[] myMsg = message.split(",");
+		
+		if(myMsg[0].equals("done")) {
+			finish(message, code, username);
+		}
+		else if(myMsg[0].equals("datapls")) {
+			Room r = rooms.get(code);
+			JSONObject obj = r.giveMeTags(myMsg[1], myMsg[2]);
+			
+			//Send the obj to the master user in the session.
+			for(User u : r.getUserList()) {
+				try {
+					r.getSessions().get(username).getBasicRemote().sendText(obj.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}	
+		}
+		else {
+			tagParse(message, code, username);
+		}
+	}
+	
+	public void finish(String message, String code, String username) {
+		//Change user to finished.
+		Room r = rooms.get(code);
+		User user = r.getUser(username);
+		
+		user.setFinished(true);
+		
+		//Check if everyone is finished.
+		if(r.isFinished()) {
+			r.broadcast("finished");
+		}
+		else {
+			r.broadcast("wait");
+		}
+	}
+	
+	public void tagParse(String tag, String code, String username) {
+		String[] myMsg = tag.split(",");
 		
 		Integer command = Integer.parseInt(myMsg[0]);
 		
@@ -87,7 +144,6 @@ public class glpSocket {
 		}
 		else if(command == 4) {
 			removeTag(myMsg[1], code, username, false);
-
 		}
 		else {
 			System.out.println("Bad command.");
@@ -125,4 +181,5 @@ public class glpSocket {
 			user.removeDealbreaker(tag);
 		}
 	}
+	
 }

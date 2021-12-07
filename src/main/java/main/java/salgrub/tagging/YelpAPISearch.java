@@ -11,7 +11,9 @@ import java.util.*;
 import java.lang.String;
 
 public class YelpAPISearch {
-    public String location = "3551 Trousdale Pkwy, Los Angeles, CA 90089";
+//    public String location = "3551 Trousdale Pkwy, Los Angeles, CA 90089";
+	private double latitude;
+	private double longitude;
     public int search_radius = 40000;
     public int search_limit = 1000;
 
@@ -21,8 +23,8 @@ public class YelpAPISearch {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder().build();
             String builder = "https://api.yelp.com/v3/businesses/search" + "?term=" + tag +
-            "&location=" + location + "&radius=" + search_radius + "&limit=" + 50 +
-            "&offset" + search_limit + "&open_now=true"; 
+            "&latitude=" + latitude + "&longitude=" + longitude + "&radius=" + search_radius + "&limit=" + 50 +
+            "&offset" + search_limit + "&open_now=true";
 
             Request request = new Request.Builder().url(builder).method("GET", null).addHeader(
                 "Authorization",
@@ -54,8 +56,9 @@ public class YelpAPISearch {
         return listOfJsons;
     }
 
-    public void SetLocation(String s) {
-        this.location = s;
+    public void SetLocation(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public void SetSearchRadius(int n) {
@@ -65,14 +68,4 @@ public class YelpAPISearch {
     public void SetSearchLimit(int n) {
         search_limit = n;
     }
-
-    /*public static void main(String[] args) {
-        YelpAPISearch search = new YelpAPISearch();
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("burgers");
-        tags.add("pizza");
-        tags.add("sandwiches");
-        ArrayList<String> jsons = search.getRestaurants(tags);
-        System.out.println(jsons.toString());
-    }*/
 }
