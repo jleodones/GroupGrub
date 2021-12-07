@@ -89,10 +89,12 @@ public class ResultsSocket {
 					maxVote = entry.getValue();
 				}
 			}
-			
+			System.out.println("max vote: " + maxVote);
+
 			//Every item with that vote gets stored in the "winners" array list.
 			for(Map.Entry<String, Integer> entry : curr.entrySet()) {
 				if (maxVote == entry.getValue()) {
+					System.out.println("yo");
 					winners.add(entry.getKey());
 				}
 			}
@@ -100,6 +102,7 @@ public class ResultsSocket {
 			//Convert winner array to JSON.
 			JSONObject json = new JSONObject();
 			json.put("winners", winners);
+			System.out.println("My winners pt 2: " + json.toString());
 						
 			finishedSwiping += 1;
 			
@@ -108,14 +111,6 @@ public class ResultsSocket {
 			if (finishedSwiping < r.getSessions().size()) {
 				r.broadcast("no", username);
 			} else {	//else send the winner
-//				try {
-//					for(Session s : sessionVector) {
-//						s.getBasicRemote().sendText(winner);
-//					}
-//					
-//				} catch (IOException ioe) {
-//					System.out.println("ioe: " + ioe.getMessage());
-//				}
 				r.broadcastAll(json.toString());
 			}
 		}
