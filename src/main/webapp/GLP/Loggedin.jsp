@@ -110,14 +110,12 @@
 							mymsg += lat + "," + longitude;
 							socket.send(mymsg);
 						}
-						else{
-							moveOn();
-						}
  					}
 					else if(msg == "wait"){
 						document.getElementById("waiting").innerHTML += "Waiting" + "<br/>";
 					}
 					else{ //Requested data has been received.
+						console.log("Received data.");
 						var x = JSON.parse(event.data);
 						var array = JSON.stringify(x);
 						data = encodeURIComponent(array);
@@ -145,8 +143,6 @@
 				const moveOn = () => {
 					var url = "../Restaurant_Swiping/RestaurantDisplay.jsp?code=<%=code%>&username=<%=username%>&master=<%=master%>&data=";
 					url += data;
-/* 					console.log("data again: " + data);
-					console.log(url); */
 					window.location.href = url;
 				}
 				

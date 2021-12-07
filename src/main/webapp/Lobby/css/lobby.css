@@ -1,16 +1,16 @@
 @font-face {
     font-family: Oswald-Regular;
-    src: url('/fonts/oswald/Oswald-Regular.ttf'); 
+    src: url('../fonts/oswald/Oswald-Regular.ttf'); 
 }
 
 @font-face {
     font-family: Oswald-Medium;
-    src: url('/fonts/oswald/Oswald-Medium.ttf'); 
+    src: url('../fonts/oswald/Oswald-Medium.ttf'); 
 }
 
 @font-face {
     font-family: Oswald-Bold;
-    src: url('/fonts/oswald/Oswald-Bold.ttf'); 
+    src: url('../fonts/oswald/Oswald-Bold.ttf'); 
 }
 
 .column{
@@ -40,6 +40,8 @@
     transform: translate(-50%, -50%);
     text-align: center;
 }
+
+/* FOR LOBBY 1/INDEX.HTML OF THE LOBBY FOLDER. */
 
 #join{
     margin-top: 6em;
@@ -156,3 +158,10 @@ button{
     transition: all 0.5s ease-in-out;
     transform: scaleX(1);
   }
+  
+  /* FOR LOBBY 2, AKA LOBBY.JSP IN THE LOBBY FOLDER. */
+  
+  .lobby-header{
+  }
+  
+  .

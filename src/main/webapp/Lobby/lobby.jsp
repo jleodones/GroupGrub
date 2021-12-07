@@ -68,6 +68,8 @@
 		</script>
 	</head>
 	<body onload="connectToServer(); buttonHandle();">	
+	<div >
+	</div>
 		<h1>Group code: <%= code %></h1>
 		<br/>
 		<div id="mylobby">

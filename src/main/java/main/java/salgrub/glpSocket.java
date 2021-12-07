@@ -93,11 +93,8 @@ public class glpSocket {
 			
 			//Send the obj to the master user in the session.
 			for(User u : r.getUserList()) {
-				try {
-					r.getSessions().get(username).getBasicRemote().sendText(obj.toString());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				System.out.println("Sending my data to... " + u.getUsername());
+				r.broadcastAll(obj.toString());
 			}	
 		}
 		else {
@@ -114,10 +111,10 @@ public class glpSocket {
 		
 		//Check if everyone is finished.
 		if(r.isFinished()) {
-			r.broadcast("finished");
+			r.broadcastAll("finished");
 		}
 		else {
-			r.broadcast("wait");
+			r.broadcast("wait", username);
 		}
 	}
 	

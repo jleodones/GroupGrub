@@ -77,7 +77,7 @@ public class Room {
 		return true;
 	}
 	
-	public void broadcast(String m) {
+	public void broadcastAll(String m) {
 		for(String s : sessions.keySet()) {
 			Session x = sessions.get(s);
 			try {
@@ -85,6 +85,15 @@ public class Room {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public void broadcast(String m, String username) {
+		Session x = sessions.get(username);
+		try {
+			x.getBasicRemote().sendText(m);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
