@@ -122,10 +122,11 @@ public class Room {
 	
 	public void someoneFinished() {
 		finishedSwiping += 1;
+		System.out.println(finishedSwiping);
 	}
 	
 	public boolean everyoneReady() {
-		if(finishedSwiping >= users.size()) {
+		if(finishedSwiping >= sessions.size()) {
 			return true;
 		}
 		return false;

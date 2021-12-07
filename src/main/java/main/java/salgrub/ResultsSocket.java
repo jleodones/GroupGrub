@@ -16,9 +16,6 @@ public class ResultsSocket {
 	private static Vector<Session> sessionVector = new Vector<Session>();
 	private static HashMap<String, HashMap<String, Integer>> votes = new HashMap<String, HashMap<String, Integer> >();
 	private static HashMap<String, Room> rooms = new HashMap<String, Room>();	//code, username, session
-	private static int finishedSwiping = 0;
-	private static int maxVote = 0;
-	private static String winner = "";
 
 	public int getCount() {
 		return sessionVector.size(); 
@@ -80,6 +77,8 @@ public class ResultsSocket {
 		System.out.println("Received Message");
 		System.out.println(message);
 		
+		int maxVote = 0;
+		
 		if(message.equals("abcdefghijk")) {
 			System.out.println("yo");
 			
@@ -109,6 +108,7 @@ public class ResultsSocket {
 			
 			//if all the users aren't finished, keep on going
 			if (!r.everyoneReady()) {
+				System.out.println("true");
 				r.broadcast("no", username);
 			} else {	//else send the winner
 				r.broadcastAll(json.toString());
