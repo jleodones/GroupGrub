@@ -36,6 +36,46 @@
 			socket = new WebSocket(address);
 			console.log("Socket Initializing");
  			getRestaurants();
+ 			
+ 			
+ 			socket.onmessage = function(event) {
+ 				msg = event.data;
+ 	            msg = msg.replace(/(\r\n|\n|\r)/gm,"");
+ 	            console.log(event.data);
+ 	            
+ 				if (msg == "no") {
+ 					document.getElementById("yesButton").style.visibility = "hidden";
+ 					document.getElementById("noButton").style.visibility = "hidden";
+ 					document.getElementById("header").style.visibility = "visible";
+ 					document.getElementById("restaurant_view").innerHTML = "";
+ 				} else {
+ 					//Turn the JSON into a workable array.
+					var x = JSON.parse(event.data);
+					var json = {};
+					for(int i = 0; i < x.winners.length; i++){
+						//Grab the index of the winner.
+						var pos = restID.indexOf(x.winners[i]);
+						
+						var name = restName[pos];
+						var id = x.winners[i];
+						var img = restImg[pos];
+						var rating = restRating[pos];
+						var price = restPrice[pos];
+						var distance = restDistance[pos];
+						
+						//Store this data in the JSON array.
+						json.name = [name, id, img, rating, price, distance];
+					}
+					
+					//Convert this into a JSON to send to the next page.
+					var dataToSend = JSON.stringify(json);
+					console.log(dataToSend);
+					winner = encodeURIComponent(dataToSend);
+					
+					//Send to the next page.
+ 					window.location.href = "WinningRestaurant.jsp?winners=" + dataToSend;
+ 				}
+ 			}
 		}
 		
         <%!
@@ -64,9 +104,6 @@
            		ArrayList<String> noWant = new ArrayList<String>();
            		String latString;
            		String longString;
-
-/*            		want.add("hamburgers");   
-                noWant.add("fish"); */
                 
                 System.out.println("Encoded: " + encoded);
                 
@@ -116,7 +153,6 @@
                 
                 //string builder converts arraylist into array for javascript. Stores
                 //array in 'listAsString'
-               
                 String jsonName = new Gson().toJson(listAsStr(restaurantName));
                 String jsonID = new Gson().toJson(listAsStr(restaurantID));
                 String jsonImg = new Gson().toJson(listAsStr(restaurantImg));
@@ -140,27 +176,14 @@
         
         //loads new restaurant in the restaurant_view paragraph tag 
         function loadNewRestaurant() {
-        	//restName.length
+        	//10 is a placeholder for testing. Change this later.
         	if(restaurantCount < 10) {
             	document.getElementById("restaurant_view").innerHTML = restName[restaurantCount] + "<br>"
             	+ restID[restaurantCount] + "<br>" + restImg[restaurantCount] + "<br>"
             	+ restClosed[restaurantCount] + "<br>" + restRating[restaurantCount] + "<br>"
             	+ restPrice[restaurantCount] + "<br>" + restDistance[restaurantCount];
-                }
+            }
         	else {
-        		console.log("Sending Results To Server")
-        		socket.onmessage = function(event) {
-        			console.log("test1");
-        			if (event.data == "Not Finished") {
-        				document.getElementByClassName("button").style.visibility = "hidden";
-        				document.getElementById("header").style.visibility = "visible";
-        				document.getElementById("restaurant_view").innerHTML = "";
-        			} else {
-        				//localStorage.setItem("winningRestaurant",event.data);
-        				window.location.href = "WinningRestaurant.jsp?winner=" + event.data;
-        				//location.replace("WinningRestaurant.jsp");
-        			}
-        		}
         		displayResults();
         	}
         }
@@ -168,33 +191,21 @@
         //loads new restaurant
         function yesRestaurant() {
         	console.log(restaurantCount);
-        	
         	restaurantCount += 1;
         	var messageString = restID[restaurantCount-1];
         	socket.send(messageString);
-        	//console.log("YES", restID[restaurantCount-1]);
 
             loadNewRestaurant();
         }
         
         function noRestaurant() {
-        	//console.log(restaurantCount);
-
         	restaurantCount += 1;
         	loadNewRestaurant();
         }
         
         function displayResults() {
-        	if(socket.readyState === 1){
-        		console.log("ready")
-        	} 
-
         	console.log("Sending to server socket abcdefg");
         	socket.send("abcdefghijk");
-        }
-        
-        function loadHeader() {
-        	document.getElementById("header").style.visibility = "hidden";
         }
         
     </script>
@@ -204,12 +215,12 @@
     </head> 
     <body onload="connectToServer()">
         <div>
-        	<h1 id="header" style="display:none;"> Waiting For Everyone To Finish </h1>
+        	<h1 id="header" style="visibility: hidden;"> Waiting For Everyone To Finish </h1>
             <p id="restaurant_view" onload="loadNewRestaurants()">
                 
             </p>
-            <button onclick="yesRestaurant()" class="button">Yes</button>
-            <button onclick="noRestaurant()" class="button">No</button>
+            <button id="yesButton" onclick="yesRestaurant()" class="button">Yes</button>
+            <button id="noButton" onclick="noRestaurant()" class="button">No</button>
         </div>
     </body>
     

@@ -4,6 +4,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/lobby.css">
+		
+		<script type="text/javascript" src="js/mouse.js"></script>	
+		
 		<title>Lobby</title>
 		<%
 		/* Getting values from request. */
@@ -63,19 +68,21 @@
 			function move(){
 				console.log("yo");
 				socket.send("<%=code%>, ready");				
-			}
-			
+			}	
 		</script>
 	</head>
 	<body onload="connectToServer(); buttonHandle();">	
-	<div >
-	</div>
-		<h1>Group code: <%= code %></h1>
-		<br/>
-		<div id="mylobby">
+		<div class="lobby-header fs-50"> GROUP CODE
+			<div class="lobby-code">
+				<%=code%>
+			</div>
+		</div>
+		
+		<div class="lobby" id="mylobby">
 			Currently in lobby:
 		</div>
-		<button id="readyButton" type="button" onclick="move();">
+		
+		<button class="btn-3" id="readyButton" style="Display: initial" type="button" onclick="move();">
 			Ready?
 		</button>
 	</body>

@@ -6,6 +6,10 @@ import java.util.*;
 import javax.websocket.*;
 import javax.websocket.server.*;
 
+import org.json.JSONObject;
+
+import main.java.salgrub.tagging.Restaurant;
+
 @ServerEndpoint(value = "/swiping/{code}/{username}")
 public class ResultsSocket {
 
@@ -37,7 +41,6 @@ public class ResultsSocket {
 			rooms.put(code, r);
 			votes.put(code,  new HashMap<String, Integer>());
 		}
-			
 	}
 	
 	@OnClose
@@ -70,47 +73,50 @@ public class ResultsSocket {
 	
 	@OnMessage
 	public void onMessage(String message, @PathParam("code") String code, @PathParam("username") String username) {
-//		String[] list = message.split(",");
-//		message = list[0];
-//		String code = list[1];
-//		String username = list[2];
 		
 		HashMap<String, Integer> curr = votes.get(code);
+		ArrayList<String> winners = new ArrayList<String>();
 		
-		System.out.println("Recieved Message");
+		System.out.println("Received Message");
 		System.out.println(message);
 		
 		if(message.equals("abcdefghijk")) {
 			System.out.println("yo");
+			
+			//Retrieve the max vote count.
 			for(Map.Entry<String, Integer> entry : curr.entrySet()) {
 				if (maxVote < entry.getValue()) {
 					maxVote = entry.getValue();
-					winner = entry.getKey();
 				}
 			}
-			Room r = rooms.get(code);
 			
+			//Every item with that vote gets stored in the "winners" array list.
+			for(Map.Entry<String, Integer> entry : curr.entrySet()) {
+				if (maxVote == entry.getValue()) {
+					winners.add(entry.getKey());
+				}
+			}
+			
+			//Convert winner array to JSON.
+			JSONObject json = new JSONObject();
+			json.put("winners", winners);
+						
 			finishedSwiping += 1;
 			
 			//if all the rooms aren't finished, keep on going
+			Room r = rooms.get(code);
 			if (finishedSwiping < r.getSessions().size()) {
-				try {
-					for (Session s : sessionVector) {
-						s.getBasicRemote().sendText("Not Finished");
-					}
-				} catch (IOException ioe) {
-					System.out.println("ioe: " + ioe.getMessage());
-				}
+				r.broadcast("no", username);
 			} else {	//else send the winner
-				try {
-					for(Session s : sessionVector) {
-						System.out.println(winner);
-						s.getBasicRemote().sendText(winner);
-					}
-					
-				} catch (IOException ioe) {
-					System.out.println("ioe: " + ioe.getMessage());
-				}
+//				try {
+//					for(Session s : sessionVector) {
+//						s.getBasicRemote().sendText(winner);
+//					}
+//					
+//				} catch (IOException ioe) {
+//					System.out.println("ioe: " + ioe.getMessage());
+//				}
+				r.broadcastAll(json.toString());
 			}
 		}
 		

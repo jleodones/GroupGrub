@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="org.json.*"%>
 <!DOCTYPE html>
 <html>
-	<%  String winner = request.getParameter("winner");
-		System.out.println(winner);
+	<%
+		String winners = request.getParameter("winner");
 	%>
 	<script language="javascript">
-		var winningRestaurant = "";
-		
-		
+<%-- 		var winningRestaurant = "";
 		function loadWinningRestaurant() {
-			document.getElementById("winning_restaurant").innerHTML = "<%=winner%>";
+			document.getElementById("winning_restaurant").innerHTML = "<%=winner%>"; --%>
+			
+			var winners = JSON.parse(<%=winners%>);
+			winners.forEach
 		}
 		
 	</script>
@@ -20,7 +22,7 @@
 </head>
 <body onload="loadWinningRestaurant()">
 	<h1>The Winner is: </h1>
-	<p id="winning_restaurant">
-	</p>
+	<div id="winning_restaurant">
+	</div>
 </body>
 </html>

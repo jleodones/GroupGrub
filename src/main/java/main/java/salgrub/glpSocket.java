@@ -50,7 +50,6 @@ public class glpSocket {
 		
 		if(rooms.containsKey(code)) {
 			r = rooms.get(code);
-			String m = code + "," + username;
 			r.addSession(username, session);
 			r.addUser(user);
 		}

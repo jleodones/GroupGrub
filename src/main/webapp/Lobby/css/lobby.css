@@ -13,6 +13,10 @@
     src: url('../fonts/oswald/Oswald-Bold.ttf'); 
 }
 
+body, html {
+	font-family: Oswald-Regular, sans-serif;
+}
+
 .column{
     height: 100%;
     width: 50%;
@@ -64,7 +68,8 @@ button{
 }
 
 .btn-1,
-.btn-2 {
+.btn-2,
+.btn-3 {
     width: auto;
     height: auto;
     display: flex;
@@ -74,7 +79,8 @@ button{
 }
 
 .btn-1 a,
-.btn-2 a {
+.btn-2 a,
+.btn-3 a {
     text-decoration: none;
     border: 0.125em solid #F0BC34;
     padding: 1.3125em;
@@ -118,7 +124,8 @@ button{
   /* Created by http://grohit.com/  */
   
   .btn-1 a:hover::after,
-  .btn-2 a:hover::after {
+  .btn-2 a:hover::after,
+  .btn-3 a:hover::after {
     transform: scaleX(0);
   }
   
@@ -162,6 +169,53 @@ button{
   /* FOR LOBBY 2, AKA LOBBY.JSP IN THE LOBBY FOLDER. */
   
   .lobby-header{
+  	text-align: center;
+  	border-style: solid;
+  	border-color: #831300;
+  	border-width: 3px;
+  	
   }
   
-  .
+  .lobby-code{
+  	text-align: center;
+  }
+  
+  .lobby{
+  	text-align: center;
+  }
+  
+  
+  .btn-3 a {
+    color: #21181B;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .btn-3 a:hover {
+    color: #F0BC34;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .btn-3 a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    width: 100%;
+    height: 100%;
+    background-color: #F0BC34;
+    transition: all 0.5s ease-in-out;
+    transform: scaleY(1);
+  }
+  
+  .btn-3 a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F0BC34;
+    transition: all 0.5s ease-in-out;
+    transform: scaleX(1);
+  }
