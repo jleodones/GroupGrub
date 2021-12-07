@@ -37,6 +37,7 @@
 			console.log("Socket Initializing");
  			getRestaurants();
  			
+ 			console.log("here");
  			
  			socket.onmessage = function(event) {
  				msg = event.data;
@@ -52,7 +53,7 @@
  					//Turn the JSON into a workable array.
 					var x = JSON.parse(event.data);
 					var json = {};
-					for(int i = 0; i < x.winners.length; i++){
+ 					for(var i = 0; i < x.winners.length; i++){
 						//Grab the index of the winner.
 						var pos = restID.indexOf(x.winners[i]);
 						
@@ -64,16 +65,15 @@
 						var distance = restDistance[pos];
 						
 						//Store this data in the JSON array.
-						json.name = [name, id, img, rating, price, distance];
+ 						json[name] = [name, id, img, rating, price, distance];
 					}
 					
 					//Convert this into a JSON to send to the next page.
 					var dataToSend = JSON.stringify(json);
 					console.log(dataToSend);
 					winner = encodeURIComponent(dataToSend);
-					
 					//Send to the next page.
- 					window.location.href = "WinningRestaurant.jsp?winners=" + dataToSend;
+ 					window.location.href = "WinningRestaurant.jsp?winners=" + winner;
  				}
  			}
 		}
@@ -177,7 +177,7 @@
         //loads new restaurant in the restaurant_view paragraph tag 
         function loadNewRestaurant() {
         	//10 is a placeholder for testing. Change this later.
-        	if(restaurantCount < 10) {
+        	if(restaurantCount < 3) {
             	document.getElementById("restaurant_view").innerHTML = restName[restaurantCount] + "<br>"
             	+ restID[restaurantCount] + "<br>" + restImg[restaurantCount] + "<br>"
             	+ restClosed[restaurantCount] + "<br>" + restRating[restaurantCount] + "<br>"
