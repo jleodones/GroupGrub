@@ -176,7 +176,8 @@
         
         //loads new restaurant in the restaurant_view paragraph tag 
         function loadNewRestaurant() {
-        	//10 is a placeholder for testing. Change this later.
+        	
+        	//3 is a placeholder for testing. CHANGE THIS LATER.
         	if(restaurantCount < 3) {
             	document.getElementById("restaurant_view").innerHTML = restName[restaurantCount] + "<br>"
             	+ restID[restaurantCount] + "<br>" + restImg[restaurantCount] + "<br>"
