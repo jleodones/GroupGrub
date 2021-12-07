@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .tagCols {
-	position: relative;
+	position: static;
 	width: 50%;
 	display:block;
 	width:fit-content;
@@ -57,5 +57,3 @@ h2{
 .button:hover{
 	color: #b3af90;
 }
-
-

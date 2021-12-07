@@ -23,9 +23,8 @@
 	<body style = "background: #AB8CB5;">
 		
 		<div class = "groupTags">
-			<div class = "tagCols" style= "float: left;"> 
+			<div class = "tagCols" style= "float: left;" id="goodCol"> 
 				<h2> Want </h2>
-				
 				<div class = "navBar">
 					<input id= "goodTag" type="text" placeholder="Search.." style= "float: left;"/>
 					<button id="addGItem" class = "button">AddGood</button>
@@ -41,7 +40,7 @@
 				
 			</div><!-- each section has a title, a sticky search bar, and a page slider to slide down the list of tags -->
 			
-			<div class = "tagCols" style = "float: right;">
+			<div class = "tagCols bad" style = "float: right;" id="badCol">
 				<h2> No Want </h2>
 				<div class = "navBar">
 					<input id= "badTag" type="text" placeholder="Search.." style= "float: left;"/>
@@ -78,6 +77,7 @@
 				var lat;
 				var longitude;
 				
+				//Pulling location data from the master.
 				if(<%=master%> === true){
 					if(navigator.geolocation){
 						navigator.geolocation.getCurrentPosition(showPosition);
@@ -93,6 +93,12 @@
 						longitude = position.coords.longitude;
 				}
 				
+				//Check if guest user. If yes, change visibility.
+				if(<%=username.equals("Guest")%>){
+					document.getElementById("badCol").style.display = "none";
+				}
+				
+				//OnMessage callback whenever the server sends information.
 				socket.onmessage = function(event) {
 					msg = event.data;
                     msg = msg.replace(/(\r\n|\n|\r)/gm,"");
@@ -114,12 +120,8 @@
 					else{ //Requested data has been received.
 						var x = JSON.parse(event.data);
 						var array = JSON.stringify(x);
-/* 						console.log(x);
-						console.log("x URI: " + encodeURIComponent(x));
-						console.log("array URI: " + encodeURIComponent(array)); */
 						data = encodeURIComponent(array);
-/*  						console.log("first data: " + data);
- */						moveOn();
+						moveOn();
 					}
 				}
 				
