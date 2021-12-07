@@ -35,7 +35,7 @@
 			
 			socket = new WebSocket(address);
 			console.log("Socket Initializing");
-			getRestaurants();
+ 			getRestaurants();
 		}
 		
         <%!
@@ -93,7 +93,7 @@
                 
                 Tagger tag = new Tagger(want, noWant, latitude, longitude);
                 
-                ArrayList<Restaurant> restaurants = tag.finalRestaurants(); 
+                ArrayList<Restaurant> restaurants = tag.finalRestaurants();
                 
                 //converts the restaurant objects into strings
                 ArrayList<String> restaurantName = new ArrayList<String>();
@@ -205,7 +205,7 @@
     <body onload="connectToServer()">
         <div>
         	<h1 id="header" style="display:none;"> Waiting For Everyone To Finish </h1>
-            <p id="restaurant_view" onload="loadNewRestaurant()">
+            <p id="restaurant_view" onload="loadNewRestaurants()">
                 
             </p>
             <button onclick="yesRestaurant()" class="button">Yes</button>

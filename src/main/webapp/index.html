@@ -30,6 +30,11 @@
                 }
                 xhttp.send("username=" + document.myform.username.value + "&password=" + document.myform.password.value);
             };
+            
+            function guestProceed(){
+            	sessionStorage.username = "Guest";
+                window.location.href = "Lobby/index.html";
+            }
         </script>
     </head>
     <body>
@@ -70,9 +75,9 @@
                                 </a>
                         </div>
                                     
-                        <div class="flex-col-c p-t-40">
+                        <div class="flex-col-c p-t-40" onclick="guestProceed()">
                             <span class="txt2 p-b-10">
-                                  <a href="Dummy/index.html" class="txt3 bo1 hov1">
+                                  <a class="txt3 bo1 hov1">
                                       Proceed as guest?
                                   </a>
                             </span>

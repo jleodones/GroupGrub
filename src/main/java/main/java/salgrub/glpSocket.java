@@ -66,7 +66,7 @@ public class glpSocket {
 	
 	@OnClose
 	public void close(Session session) {
-		System.out.println("Disconnecting!");
+		System.out.println("Disconnecting from GLP server!");
 		sessionVector.remove(session);
 	}
 	

@@ -42,7 +42,7 @@ public class ResultsSocket {
 	
 	@OnClose
 	public void close(Session session, @PathParam("code") String code, @PathParam("username") String username) {
-		System.out.println("Disconnecting!");
+		System.out.println("Disconnecting from results server!");
 		System.out.println(code);
 		System.out.println(username);
 

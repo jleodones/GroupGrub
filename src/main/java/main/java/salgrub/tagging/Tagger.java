@@ -61,13 +61,14 @@ public class Tagger {
             if(r.getIs_closed())
                 common.remove(r);
         }
-
-        //find all the common restaurants in each ArrayList
+        
+        //Adds restaurants to list that do not already exist.
         for(int i=1; i<rl.size(); i++) {
             ArrayList<Restaurant> temp = new ArrayList<Restaurant>();
             for(Restaurant x : rl.get(i).getBusinesses()) {
-                if(!x.getIs_closed() && common.contains(x) == true) 
+                if(!x.getIs_closed() && common.contains(x) == false) {
                     temp.add(x);
+                }
             }
             common = temp;
         }
@@ -80,14 +81,14 @@ public class Tagger {
     }
 
     public ArrayList<Restaurant> finalRestaurants() {
-        //Get the JSON String of an ArrayList of restauraunts we want and don't want
+        //Get the JSON String of an ArrayList of restaurants we want and don't want
         ArrayList<String> restaurantList = yelp.getRestaurants(_wantTags);
         ArrayList<String> dealbreakerList = yelp.getRestaurants(_noWantTags);
         
         //assign values to restaurants and dealbreakers
         ArrayList<QueryResults> tempRestaurants = parseJson(restaurantList);
         ArrayList<QueryResults > tempDealbreakers = parseJson(dealbreakerList);
-
+                
         //assign value to data member _restaurants
         if(tempRestaurants.size() == 1) {
             for(Restaurant r : tempRestaurants.get(0).getBusinesses()) {
@@ -95,10 +96,9 @@ public class Tagger {
                     _restaurants.put(r.getID(), r);
             }
         }
-
-        else 
+        else {
             intersection(tempRestaurants);
-           
+        }
             
         //assign value to data member _dealbreakers
         for(QueryResults qr: tempDealbreakers) {
@@ -106,7 +106,7 @@ public class Tagger {
                 _dealbreakers.put(r.getID(), r);
             }
         }
-
+        
         //build the final list of restaurants
         HashMap<String, Restaurant> finalList = new HashMap<String, Restaurant>(_restaurants);
 
