@@ -16,7 +16,11 @@
 	String master = request.getParameter("master");
 	String encoded = request.getParameter("data");
 	%>
-		
+	
+<!-- 	<script type="text/javascript" src="js/mouse.js"></script>
+ -->
+	<link rel="stylesheet" type="text/css" href="css/restaurant.css">
+ 	
 	<script language="javascript">
         var restaurantCount = 0;
         
@@ -179,10 +183,18 @@
         	
         	//3 is a placeholder for testing. CHANGE THIS LATER.
         	if(restaurantCount < 3) {
-            	document.getElementById("restaurant_view").innerHTML = restName[restaurantCount] + "<br>"
-            	+ restID[restaurantCount] + "<br>" + restImg[restaurantCount] + "<br>"
-            	+ restClosed[restaurantCount] + "<br>" + restRating[restaurantCount] + "<br>"
-            	+ restPrice[restaurantCount] + "<br>" + restDistance[restaurantCount];
+            	var img = "";
+            	img += restImg[restaurantCount];
+            	console.log(img);
+            	 
+             	document.getElementById("rest_img").src = img;
+             	document.getElementById("rest_name").innerHTML = restName[restaurantCount];
+            	document.getElementById("rest_rating").innerHTML = "Rating: " + restRating[restaurantCount];
+            	document.getElementById("rest_price").innerHTML = "Price: " + restPrice[restaurantCount];
+            	
+            	var miles = restDistance[restaurantCount] * 0.000621371192;
+            	
+            	document.getElementById("rest_distance").innerHTML = "Distance: " + miles + " miles" ;
             }
         	else {
         		displayResults();
@@ -208,7 +220,6 @@
         	console.log("Sending to server socket abcdefg");
         	socket.send("abcdefghijk");
         }
-        
     </script>
     <head>
         <meta charset="UTF-8">
@@ -217,13 +228,26 @@
     <body onload="connectToServer()">
         <div>
         	<h1 id="header" style="visibility: hidden;"> Waiting For Everyone To Finish </h1>
-            <p id="restaurant_view" onload="loadNewRestaurants()">
-                
-            </p>
-            <button id="yesButton" onclick="yesRestaurant()" class="button">Yes</button>
-            <button id="noButton" onclick="noRestaurant()" class="button">No</button>
+            
+            <!-- Restaurant profile. -->
+            <div id="restaurant_view" onload="loadNewRestaurants()" class="card">
+            	<img src="" id="rest_img" style="width:100%">
+            	<p id="rest_name"></p>
+            	<p id="rest_rating"></p>
+            	<p id="rest_price"></p>
+            	<p id="rest_distance"></p>
+            </div>
+            
+            <div class="myButtons">
+				<button type="button" class="btn-1" onclick="yesRestaurant();">
+					<a><span>Yes</span></a>
+				</button>
+			
+				<button type="button" class="btn-2" onclick="noRestaurant();">
+					<a><span>No</span></a>
+				</button>
+			</div>
         </div>
     </body>
-    
     
 </html>

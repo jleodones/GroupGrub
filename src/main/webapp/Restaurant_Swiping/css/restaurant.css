@@ -1,0 +1,145 @@
+@font-face {
+    font-family: Oswald-Regular;
+    src: url('../fonts/oswald/Oswald-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: Oswald-Medium;
+    src: url('../fonts/oswald/Oswald-Medium.ttf'); 
+}
+
+@font-face {
+    font-family: Oswald-Bold;
+    src: url('../fonts/oswald/Oswald-Bold.ttf'); 
+}
+
+body, html {
+	font-family: Oswald-Regular, sans-serif;
+}
+
+span {
+    position: relative;
+    /* z-index coz when we put bg to before and after this span text will not be visible */
+    z-index: 3;
+    font-size: 1.7em;
+}
+
+button{
+    border: none;
+    background-color: transparent;
+    margin: auto;
+}
+
+/* YES/NO BUTTONS. */
+
+.btn-1,
+.btn-2{
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btn-1 a,
+.btn-2 a{
+    text-decoration: none;
+    border: 0.125em solid #F0BC34;
+    padding: 1.3125em;
+    color: #F0BC34;
+    text-transform: uppercase;
+    letter-spacing: 0.125em;
+    position: relative;
+    display: inline-block;
+}
+
+.btn-1 a::before {
+    content: "";
+    position: absolute;
+    top: 0.3125em;
+    left: -0.125em;
+    width: calc(100% + 0.375em);
+    /*100% plus double the times left values*/
+    height: calc(100% - 0.625em);
+    background-color: #831300;
+    transition: all 0.5s ease-in-out;
+    transform: scaleY(1);
+  }
+  
+  .btn-1 a:hover::before,
+  .btn-2 a:hover::before {
+    transform: scaleY(0);
+  }
+  
+  .btn-1 a::after {
+    content: "";
+    position: absolute;
+    left: 0.3125em;
+    top: -0.3125em;
+    width: calc(100% - 0.625em);
+    /*100% plus double the times left values*/
+    height: calc(100% + 0.625em);
+    background-color: #831300;
+    transition: all 0.5s ease-in-out;
+    transform: scaleX(1);
+  }
+  /* Created by http://grohit.com/  */
+  
+  .btn-1 a:hover::after,
+  .btn-2 a:hover::after{
+    transform: scaleX(0);
+  }
+  
+  /* Button 2 styles */
+  
+  .btn-2 a {
+    color: #21181B;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .btn-2 a:hover {
+    color: #F0BC34;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .btn-2 a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    width: 100%;
+    height: 100%;
+    background-color: #F0BC34;
+    transition: all 0.5s ease-in-out;
+    transform: scaleY(1);
+  }
+  
+  .btn-2 a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F0BC34;
+    transition: all 0.5s ease-in-out;
+    transform: scaleX(1);
+  }
+  
+/* Profile for the restaurant. */    
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	max-width: 400px;
+	margin: auto;
+	text-align: center;
+}
+
+.myButtons{
+	margin: auto;
+	max-width:200px;
+	display: flex;
+	flex-direction: row;
+	align-self: center;
+}
