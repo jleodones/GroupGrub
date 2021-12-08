@@ -16,6 +16,29 @@
 }
 
 
+/*logout button*/
+#logout{
+	margin: 0;
+	align-self: start;
+}
+
+#logout a{
+	padding: 10px;
+	width: 70px;
+}
+
+#logout span{
+	font-size: .7em;
+	text-align:center;
+}
+
+.logout{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+/**/
+
 .tagCols {
 	position: absolute;
 	top: 50%;

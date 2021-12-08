@@ -227,7 +227,13 @@
     </head> 
     <body onload="connectToServer()">
         <div>
-        	<h1 id="header"> Choose your fighter </h1>
+        	<h1 id="header"> Choose your fighter 
+        	<div class="logout"> 
+				<button type="button" class = "btn-2" Id="logout" style="Display: initial;">
+						<a href="/baby" ><span >Logout</span></a>
+				</button>
+			</div>
+        	</h1>
             
             <!-- Restaurant profile. -->
             <div id="restaurant_view" onload="loadNewRestaurants()" class="card">

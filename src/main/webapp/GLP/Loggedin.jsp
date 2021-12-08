@@ -62,6 +62,11 @@
 		</div>
 
 		<div class="groupTags right">
+			<div class="logout"> 
+				<button type="button" class = "btn-2" Id="logout" style="Display: initial;">
+						<a href="/baby" ><span >Logout</span></a>
+				</button>
+			</div>
 			<div class = "tagCols bad" style = "float: right;" id="badCol">
 				<h2> I do not want... </h2>
 				<div class = "navBar">

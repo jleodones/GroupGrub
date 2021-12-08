@@ -13,6 +13,32 @@
     src: url('../fonts/oswald/Oswald-Bold.ttf'); 
 }
 
+
+
+
+/*logout button*/
+#logout{
+	margin: 0;
+	align-self: start;
+}
+
+#logout a{
+	padding: 10px;
+	width: 70px;
+}
+
+#logout span{
+	font-size: .7em;
+	text-align:center;
+}
+
+.logout{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+/**/
+
 body, html {
 	font-family: Oswald-Regular, sans-serif;
 }

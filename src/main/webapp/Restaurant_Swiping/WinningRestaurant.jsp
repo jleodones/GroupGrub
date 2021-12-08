@@ -9,6 +9,7 @@
 	%>
 	
 	<link rel="stylesheet" type="text/css" href="css/restaurant.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
 	
 	<script>
 		function loadWinningRestaurant() {
@@ -56,7 +57,13 @@
 <title>Winning Restaurant</title>
 </head>
 <body onload="loadWinningRestaurant()">
-	<h1 id="winner">🤩 Your Group Grub options 🤩  </h1>
+	<h1 id="winner">🤩 Your Group Grub options 🤩  
+			<div class="logout"> 
+				<button type="button" class = "btn-2" Id="logout" style="Display: initial;">
+						<a href="/baby" ><span >Logout</span></a>
+				</button>
+			</div>
+	</h1>
 	<div id="winning_restaurants">
 	</div>
 </body>
