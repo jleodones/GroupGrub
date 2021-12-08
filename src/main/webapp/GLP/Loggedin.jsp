@@ -128,8 +128,8 @@
 						navigator.geolocation.getCurrentPosition(showPosition);
 					}
 					else{
-						lat = null;
-						longitude = null;
+						lat = '34.0195613';
+						longitude = '-118.2896171';
 					}
 				}
 				
