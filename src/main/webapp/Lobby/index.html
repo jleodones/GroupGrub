@@ -9,6 +9,14 @@
 		<script type="text/javascript" src="js/mouse.js"></script>	
 		
 		<script type="text/javascript">
+		
+	        //Change logout button visibility.
+	        function checkDisplay(){
+				if(sessionStorage.username == "Guest"){
+					document.getElementById("logout").style.visibility = "hidden";
+				}
+	        }
+	        
 			function checkCode(){
 				var code = document.joingroup.myCode.value;
 
@@ -55,7 +63,7 @@
 		</script>
 		
 	</head>
-	<body>
+	<body onload="checkDisplay()">
 		<div class="column left">
 			<div class="centered">
 				<button type="button" class="btn-1" onclick="createGroup();">
@@ -65,7 +73,7 @@
 		</div>
 		<form name="joingroup" class="column right">
 			<div class="logout"> 
-				<button type="button" class = "btn-2" Id="logout" style="Display: initial;">
+				<button type="button" class = "btn-2" id="logout" style="Display: initial;">
 						<a href="/baby" ><span >Logout</span></a>
 				</button>
 			</div>

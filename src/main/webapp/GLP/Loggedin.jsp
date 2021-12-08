@@ -63,7 +63,7 @@
 
 		<div class="groupTags right">
 			<div class="logout"> 
-				<button type="button" class = "btn-2" Id="logout" style="Display: initial;">
+				<button type="button" class = "btn-2" id="logout" style="Display: initial;">
 						<a href="/baby" ><span >Logout</span></a>
 				</button>
 			</div>
@@ -162,7 +162,7 @@
 				
 				//Check if guest user. If yes, change visibility.
 				if(<%=username.equals("Guest")%>){
-					//document.getElementById("badCol").style.display = "none";
+					document.getElementById("logout").style.visibility = "hidden";
 					document.getElementById("badCol").innerHTML = "<h2>Log in to add Dealbreakers!</h2>" + "<br/>";
 				}
 				
@@ -181,7 +181,8 @@
 						}
  					}
 					else if(msg == "wait" && wait ==0){
-						document.getElementById("waiting").innerHTML += "Waiting" + "<br/>";
+						document.getElementById("finishedButton").innerHTML += "Waiting!" + "<br/>";
+						document.getElementById("finishedButton").disabled = "disabled";
 						wait = 1;
 					}
 					else{ //Requested data has been received.
@@ -224,26 +225,6 @@
 					theList.appendChild(listItem);//adds to the list passed into the method(html)
 				};
 				
-				/*var allGood = document.querySelectorAll(".goodList");
-				var allBad = document.querySelectorAll(".badList");
-				   for (var index = 0; index <allGood.length; index++){
-				      allGood[index].addEventListener("click", function(){
-				         this.classList.toggle("active");
-				      });
-				      allGood[index].querySelector("button").addEventListener("click",
-				      function(){
-				         this.closest(".goodList").remove();
-				      });
-				   }
-			      for (var index = 0; index <allBad.length; index++){
-				      allBad[index].addEventListener("click", function(){
-				         this.classList.toggle("active");
-				      });
-				      allBad[index].querySelector("button").addEventListener("click",
-				      function(){
-				         this.closest(".badList").remove();
-				      });
-			      }*/
 				const addGoodItem = () => { //adds items to list object
 					const inputGood = document.querySelector("#goodTag");
 					

@@ -54,6 +54,7 @@ public class Tagger {
     //sets the data member, restaurants, to the union of all the ArrayLists of Restaurants
     private void intersection(ArrayList<QueryResults> rl) {
         ArrayList<Restaurant> common = new ArrayList<Restaurant>(rl.get(0).getBusinesses());
+        
         HashMap<String, Restaurant> tempHash = new HashMap<String, Restaurant>();
 
         //deletes all closed restaurants from the list
@@ -67,7 +68,7 @@ public class Tagger {
             ArrayList<Restaurant> temp = new ArrayList<Restaurant>();
             
             //Were there any businesses returned?
-            if(rl.get(i).getBusinesses().isEmpty()) {
+            if(rl.get(i).getBusinesses() == null) {
             	continue;
             }
             
@@ -109,6 +110,9 @@ public class Tagger {
             
         //assign value to data member _dealbreakers
         for(QueryResults qr: tempDealbreakers) {
+        	if(qr.getBusinesses() == null) {
+        		continue;
+        	}
             for(Restaurant r : qr.getBusinesses()) {
                 _dealbreakers.put(r.getID(), r);
             }

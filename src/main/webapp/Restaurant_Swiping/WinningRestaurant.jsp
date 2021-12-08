@@ -12,6 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	
 	<script>
+	    //Change logout button visibility.
+		if(sessionStorage.username = "Guest"){
+			document.getElementById("logout").style.visibility = "hidden";
+		}
 		function loadWinningRestaurant() {
 			var winners = JSON.parse('<%=winners%>');
 			console.log(winners);
@@ -30,20 +34,37 @@
 				innerImg.style = "width:100%";
 				newDiv.appendChild(innerImg);
 				
-				var innerName = document.createElement('div');
-				innerName.innerHTML = array[0];
+				var innerName = document.createElement('p');
+				innerName.innerHTML = "Name: " + array[0];
 				newDiv.appendChild(innerName);
 
 				var innerRating = document.createElement('p');
-				innerRating.innerHTML = array[3];
+				var rating = array[3];
+				if(rating === null || rating === "undefined"){
+					rating = "Rating could not be found!";
+				}
+				innerRating.innerHTML = "Rating: " + rating;
 				newDiv.appendChild(innerRating);
 
 				var innerPrice = document.createElement('p');
-				innerPrice.innerHTML = array[4];
+				var price = array[4];
+				if(price === null || price === "undefined"){
+					price = "Price could not be found!";
+				}
+				innerPrice.innerHTML = "Price: " + price;
 				newDiv.appendChild(innerPrice);
 
 				var innerDistance = document.createElement('p');
-				innerDistance.innerHTML = array[5];
+				var miles = array[5];
+				if(miles === null || miles === "undefined"){
+					miles = "Distance could not be found!";
+				}
+				else{
+					miles = array[5] * 0.000621371192;
+					miles = Math.trunc(miles);
+					miles += " miles";
+				}
+	           	innerDistance.innerHTML = "Distance: " + miles;
 				newDiv.appendChild(innerDistance);
 
 				//Finally, append the new div to the actual document.

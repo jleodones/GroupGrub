@@ -26,6 +26,11 @@
 		<script>
 			var socket;
 			
+	        //Change logout button visibility.
+			if(<%=username.equals("Guest")%>){
+				document.getElementById("logout").style.visibility = "hidden";
+			}
+			
 			/* Displays the ready button depending on if the person is the master or not. */
 			function buttonHandle(){
 				if(<%=m.equals("false")%>){

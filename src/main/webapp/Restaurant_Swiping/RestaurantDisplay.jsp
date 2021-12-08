@@ -34,6 +34,11 @@
         
         var socket;
         
+        //Change logout button visibility.
+		if(<%=username.equals("Guest")%>){
+			document.getElementById("logout").style.visibility = "hidden";
+		}
+        
 		function connectToServer() {
 			var address = "ws://" + window.location.host + "/baby/swiping/" + "<%=code%>/" + "<%=username%>";
 			
@@ -51,7 +56,7 @@
  				if (msg == "no") {
  					document.getElementById("yesButton").style.visibility = "hidden";
  					document.getElementById("noButton").style.visibility = "hidden";
- 					document.getElementById("header").style.visibility = "visible";
+ 					document.getElementById("header").innerHTML = "Waiting for the others to finish!";
  					document.getElementById("restaurant_view").innerHTML = "";
  				} else {
  					//Turn the JSON into a workable array.
@@ -74,6 +79,8 @@
 					
 					//Convert this into a JSON to send to the next page.
 					var dataToSend = JSON.stringify(json);
+	 	            dataToSend = dataToSend.replace(/(\r\n|\n|\r)/gm,"");
+
 					console.log(dataToSend);
 					winner = encodeURIComponent(dataToSend);
 					//Send to the next page.
@@ -182,19 +189,45 @@
         function loadNewRestaurant() {
         	
         	//3 is a placeholder for testing. CHANGE THIS LATER.
-        	if(restaurantCount < 3) {
+        	if(restaurantCount < 5) {
             	var img = "";
             	img += restImg[restaurantCount];
             	console.log(img);
             	 
              	document.getElementById("rest_img").src = img;
-             	document.getElementById("rest_name").innerHTML = restName[restaurantCount];
-            	document.getElementById("rest_rating").innerHTML = "Rating: " + restRating[restaurantCount];
+             	
+             	//Name
+             	var name = restName[restaurantCount];
+				if(name === null || name === "undefined"){
+					name = "Name could not be found!";
+				}
+             	document.getElementById("rest_name").innerHTML = "Name: " + name;
+             	
+             	//Rating
+             	var rating = restRating[restaurantCount];
+				if(rating === null || rating === "undefined"){
+					rating = "Rating could not be found!";
+				}
+            	document.getElementById("rest_rating").innerHTML = "Rating: " + rating;
+            	
+            	//Price
+            	var price = restPrice[restaurantCount];
+				if(price === null || price === "undefined"){
+					price = "Rating could not be found!";
+				}
             	document.getElementById("rest_price").innerHTML = "Price: " + restPrice[restaurantCount];
             	
-            	var miles = restDistance[restaurantCount] * 0.000621371192;
+            	//Distance
+            	var miles = restDistance[restaurantCount]
+				if(miles === null || miles === "undefined"){
+					miles = "Rating could not be found!";
+				}else{
+					miles = miles * 0.000621371192;
+					miles = Math.trunc(miles);
+					miles += " miles"; 
+				}
             	
-            	document.getElementById("rest_distance").innerHTML = "Distance: " + Math.trunc(miles) + " miles" ;
+            	document.getElementById("rest_distance").innerHTML = "Distance: " + miles;
             }
         	else {
         		displayResults();
@@ -220,6 +253,7 @@
         	console.log("Sending to server socket abcdefg");
         	socket.send("abcdefghijk");
         }
+        
     </script>
     <head>
         <meta charset="UTF-8">
@@ -229,7 +263,7 @@
         <div>
         	<h1 id="header"> Choose your fighter 
         	<div class="logout"> 
-				<button type="button" class = "btn-2" Id="logout" style="Display: initial;">
+				<button type="button" class = "btn-2" id="logout" style="Display: initial;">
 						<a href="/baby" ><span >Logout</span></a>
 				</button>
 			</div>
