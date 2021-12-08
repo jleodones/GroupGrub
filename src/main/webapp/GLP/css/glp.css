@@ -22,16 +22,16 @@
 	overflow: hidden;
 	
 	float: left;
-	padding: 0;
-	margin: 1em;
+	padding-top: 1em;
+	padding-bottom: 1em;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 input[type=text]{
 	width: auto;
-	border: 2px solid #F0BC34;
+	border: 1px solid #F0BC34;
 	border-radius: 2px;
 	font-size: 12px;
 	background-color: #571C1E;
@@ -39,7 +39,7 @@ input[type=text]{
 	background-position: 10px 10px; 
 	background-repeat: no-repeat;
 	padding: 8px;
-	text-transform: uppercase;
+	
 	align-self: center;
 	padding-right: .5em;
 	

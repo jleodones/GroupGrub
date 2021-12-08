@@ -86,7 +86,6 @@ input[type=text] {
   background-position: 10px 10px; 
   background-repeat: no-repeat;
   padding: 8px;
-  text-transform: uppercase;
 }
 
 input, select, textarea{
