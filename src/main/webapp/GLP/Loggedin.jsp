@@ -42,7 +42,7 @@
 		
 		<div class = "groupTags left">
 			<div class = "tagCols" style= "float: left;" id="goodCol"> 
-				<h2> Want </h2>
+				<h2> I want... </h2>
 				<div class = "navBar">
 					<input id= "goodTag" type="text" placeholder="Search.."/>
 					<button id="addGItem" class = "btn-1">
@@ -63,7 +63,7 @@
 
 		<div class="groupTags right">
 			<div class = "tagCols bad" style = "float: right;" id="badCol">
-				<h2> No Want </h2>
+				<h2> I do not want... </h2>
 				<div class = "navBar">
 					<input id= "badTag" type="text" placeholder="Search.." />
 					<button id="addBItem" class = "btn-1">
@@ -157,7 +157,8 @@
 				
 				//Check if guest user. If yes, change visibility.
 				if(<%=username.equals("Guest")%>){
-					document.getElementById("badCol").style.display = "none";
+					//document.getElementById("badCol").style.display = "none";
+					document.getElementById("badCol").innerHTML = "<h2>Log In to add Dealbreakers!</h2>" + "<br/>";
 				}
 				
 				//OnMessage callback whenever the server sends information.
@@ -166,6 +167,7 @@
                     msg = msg.replace(/(\r\n|\n|\r)/gm,"");
                     
 					console.log(msg);
+					let wait = 0;
 					if(msg == "finished"){
 						if(<%=master%> === true){
 							var mymsg = "datapls,";
@@ -173,8 +175,9 @@
 							socket.send(mymsg);
 						}
  					}
-					else if(msg == "wait"){
+					else if(msg == "wait" && wait ==0){
 						document.getElementById("waiting").innerHTML += "Waiting" + "<br/>";
+						wait = 1;
 					}
 					else{ //Requested data has been received.
 						console.log("Received data.");
@@ -208,14 +211,46 @@
 					window.location.href = url;
 				}
 				
+				/* Angie's Script */
 				
-
 				const appendListItem = (theList, itemTxt) => { //append list item 
 					let listItem = document.createElement("li"); //create a list item 
 					listItem.textContent = itemTxt; //list item set to given text
+					
+					//create button
+					let btn = document.createElement("button");
+					btn.innerHTML = "X";
+					btn.type = "submit";
+					btn.name = "formBtn";
+					btn.addEventListener("click", function(){
+				         this.closest(theList).remove();
+				      });
+					
+					//add button to list item
+					listItem.appendChild(btn);
 					theList.appendChild(listItem);//adds to the list passed into the method(html)
 				};
-
+				
+				/*var allGood = document.querySelectorAll(".goodList");
+				var allBad = document.querySelectorAll(".badList");
+				   for (var index = 0; index <allGood.length; index++){
+				      allGood[index].addEventListener("click", function(){
+				         this.classList.toggle("active");
+				      });
+				      allGood[index].querySelector("button").addEventListener("click",
+				      function(){
+				         this.closest(".goodList").remove();
+				      });
+				   }
+			      for (var index = 0; index <allBad.length; index++){
+				      allBad[index].addEventListener("click", function(){
+				         this.classList.toggle("active");
+				      });
+				      allBad[index].querySelector("button").addEventListener("click",
+				      function(){
+				         this.closest(".badList").remove();
+				      });
+			      }*/
 				const addGoodItem = () => { //adds items to list object
 					const inputGood = document.querySelector("#goodTag");
 					
@@ -262,6 +297,7 @@
 				document.querySelector("#addGItem").addEventListener("click", addGoodItem);
 				document.querySelector("#addBItem").addEventListener("click", addBadItem);
 				document.querySelector("#finishedButton").addEventListener("click", sendFinish);
+				
 			})();
 		</script>
 		

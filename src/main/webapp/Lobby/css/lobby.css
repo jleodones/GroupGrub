@@ -29,12 +29,12 @@ body, html {
 
 .right{
     right: 0;
-    background-color: #21181B;
+    background-color: #FCE181;
 }
 
 .left{
     left: 0;
-    background-color: #831300;
+    background-color: #9FEDD7;
 }
 
 .centered{
@@ -52,11 +52,11 @@ body, html {
 }
 
 #gJoin a::before{
-	background-color: #21181B;
+	background-color: #FCE181;
 }
 
 #gJoin a::after{
-	background-color: #21181B;
+	background-color: #FCE181;
 }
 
 #joinB{
@@ -77,11 +77,11 @@ button{
 
 input[type=text] {
   width: auto;
-  border: 2px solid #F0BC34;
-  color: #F0BC34;
+  border: 1px solid #026670;
+  color: #026670;
   border-radius: 2px;
   font-size: 12px;
-  background-color: #21181B;
+  background-color: #FCE181;
   background-image: url('searchicon.png');
   background-position: 10px 10px; 
   background-repeat: no-repeat;
@@ -89,15 +89,15 @@ input[type=text] {
 }
 
 input, select, textarea{
-    color: #F0BC34;
+    color: #026670;
 }
 
 textarea:focus, input:focus {
-    color: #F0BC34;
+    color: #026670;
 }
 
 input::placeholder{
-	color: #F0BC34;
+	color: #026670;
 }
 
 .btn-1,
@@ -113,9 +113,9 @@ input::placeholder{
 .btn-1 a,
 .btn-2 a{
     text-decoration: none;
-    border: 0.125em solid #F0BC34;
+    border: 0.125em solid #026670;
     padding: 1.3125em;
-    color: #F0BC34;
+    color: #026670;
     text-transform: uppercase;
     letter-spacing: 0.125em;
     position: relative;
@@ -130,7 +130,7 @@ input::placeholder{
     width: calc(100% + 0.375em);
     /*100% plus double the times left values*/
     height: calc(100% - 0.625em);
-    background-color: #831300;
+    background-color: #9FEDD7;
     transition: all 0.5s ease-in-out;
     transform: scaleY(1);
   }
@@ -148,7 +148,7 @@ input::placeholder{
     width: calc(100% - 0.625em);
     /*100% plus double the times left values*/
     height: calc(100% + 0.625em);
-    background-color: #831300;
+    background-color: #9FEDD7;
     transition: all 0.5s ease-in-out;
     transform: scaleX(1);
   }
@@ -162,12 +162,12 @@ input::placeholder{
   /* Button 2 styles */
   
   .btn-2 a {
-    color: #21181B;
+    color: #FCE181;
     transition: all 0.5s ease-in-out;
   }
   
   .btn-2 a:hover {
-    color: #F0BC34;
+    color: #026670;
     transition: all 0.5s ease-in-out;
   }
   
@@ -179,7 +179,7 @@ input::placeholder{
     width: 90px;
     width: 100%;
     height: 100%;
-    background-color: #F0BC34;
+    background-color: #026670;
     transition: all 0.5s ease-in-out;
     transform: scaleY(1);
   }
@@ -191,7 +191,7 @@ input::placeholder{
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: #F0BC34;
+    background-color: #026670;
     transition: all 0.5s ease-in-out;
     transform: scaleX(1);
   }
@@ -206,16 +206,25 @@ input::placeholder{
   	padding: 10px;
   	width: 70px;
   }
+
+  #readyButton a::before{
+    background-color: #FCE181;
+  }
+  
+  #readyButton a::after{
+    background-color: #FCE181;
+  }
   
   #readyButton span{
   	font-size: .7em;
   	text-align:center;
   }
+
   
   #lobby-header{
   	text-align: center;
   	border-style: none;
-  	background-color: #831300;
+  	background-color: #FCE181;
   	display: flex;
   	flex-direction: row;    
     left: 0; 
@@ -236,7 +245,7 @@ input::placeholder{
   
   
   #mylobby{
-  	background-color: #F0BC34;
+  	background-color: #FEF9C7;
   	border-style: none;
     width:100%;
     bottom: 0;
@@ -255,8 +264,14 @@ input::placeholder{
   .lobby{
   	text-align: center;
   	padding: 1em 2em 1em 2em;
-  	position:absolute;
+  	position: absolute;
+    color: #026670;
+  	
   }
+  
+#cHeader{
+  	font-size: 36px;
+}
   
   
  

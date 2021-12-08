@@ -30,7 +30,7 @@
 			function buttonHandle(){
 				if(<%=m.equals("false")%>){
 					console.log("false master");
-					document.getElementById("readyButton").style.display = "none";
+					document.getElementById("readyButton").style.visibility = "hidden";
 				}
 				else{
 					console.log("true master");
@@ -43,7 +43,7 @@
 				socket = new WebSocket(address);
 				
 				socket.onopen = function(event) {
-					document.getElementById("mylobby").innerHTML += "Connected!" +" <br/>";
+					document.getElementById("mylobby").innerHTML +=" <br/>";
 				}
 				
 				socket.onmessage = function(event) {
@@ -81,13 +81,14 @@
 	           	<div class="lobby-code">
 	                <%=code%>
 	            </div>
-	            <button class="btn-1" id="readyButton" style="Display: initial" type="button" onclick="move();">
+	            <button class="btn-1" id="readyButton" style="Display: initial;" type="button" onclick="move();">
 		            <a><span>Ready?</span></a>
 		        </button>
 	        </header>
 	        
+	        
 	        <div class="lobby" id="mylobby">
-	            Currently in lobby:
+	            <div class="cHeader" style="font-size: 36px;">in lobby:</div>
 	        </div>
     	</div>       
         

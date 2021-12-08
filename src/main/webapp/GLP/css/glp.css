@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: Oswald-Regular;
+    src: url('../fonts/oswald/Oswald-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: Oswald-Medium;
+    src: url('../fonts/oswald/Oswald-Medium.ttf'); 
+}
+
+@font-face {
+    font-family: Oswald-Bold;
+    src: url('../fonts/oswald/Oswald-Bold.ttf'); 
+}
+
+
 .tagCols {
 	position: absolute;
 	top: 50%;
@@ -12,7 +28,7 @@
 }
 
 #badTag{
-  background-color: #21181B;
+  background-color: #FCE181;
 }
 
 .bCol{
@@ -23,8 +39,17 @@
 }
 
 .scrollbar{
-	background: #F0BC34;
+	background:  #9FEDD7;
 }
+
+h2{
+	color: #026670;
+}
+
+li{
+	color: #026670;
+}
+
 
 .navBar {
 	overflow: hidden;
@@ -38,10 +63,10 @@
 
 input[type=text]{
 	width: auto;
-	border: 1px solid #F0BC34;
+	border: 1px solid #026670;
 	border-radius: 2px;
 	font-size: 12px;
-	background-color: #831300;
+	background-color: #9FEDD7;
 	background-image: url('searchicon.png');
 	background-position: 10px 10px; 
 	background-repeat: no-repeat;
@@ -53,15 +78,15 @@ input[type=text]{
 }
 
 input, select, textarea{
-    color: #F0BC34;
+    color: #026670;
 }
 
 textarea:focus, input:focus {
-    color: #F0BC34;
+    color: #026670;
 }
 
 input::placeholder{
-	color: #F0BC34;
+	color: #026670;
 }
 
 li{
@@ -81,7 +106,7 @@ ol{
 	height: 300px;
 	width: 200px;
 	padding: 1em;
-	border:1px solid #21181B;
+	border:1px solid #026670;
 	
 }
 
@@ -97,12 +122,12 @@ ol{
 
 .right{
   right: 0;
-  background-color: #21181B;
+  background-color:  #FCE181;
 }
 
 .left{
   left: 0;
-  background-color: #831300;
+  background-color: #9FEDD7;
 }
 
 h2{
@@ -132,9 +157,9 @@ span {
 .btn-1 a,
 .btn-2 a{
     text-decoration: none;
-    border: 0.125em solid #F0BC34;
+    border: 0.125em solid #026670;
     padding: 1.3125em;
-    color: #F0BC34;
+    color: #026670;
     text-transform: uppercase;
     letter-spacing: 0.125em;
     position: relative;
@@ -149,17 +174,17 @@ span {
     width: calc(100% + 0.375em);
     /*100% plus double the times left values*/
     height: calc(100% - 0.625em);
-    background-color: #831300;
+    background-color: #9FEDD7;
     transition: all 0.5s ease-in-out;
     transform: scaleY(1);
   }
 
   #addBItem a::before{
-    background-color: #21181B;
+    background-color: #026670;
   }
 
   #addBItem a::after{
-    background-color: #21181B;
+    background-color: #026670;
   }
   
   .btn-1 a:hover::before,
@@ -175,7 +200,7 @@ span {
     width: calc(100% - 0.625em);
     /*100% plus double the times left values*/
     height: calc(100% + 0.625em);
-    background-color: #831300;
+    background-color: #9FEDD7;
     transition: all 0.5s ease-in-out;
     transform: scaleX(1);
   }
@@ -189,12 +214,12 @@ span {
   /* Button 2 styles */
   
   .btn-2 a {
-    color: #571C1E;
+    color: #9FEDD7;
     transition: all 0.5s ease-in-out;
   }
   
   .btn-2 a:hover {
-    color: #F0BC34;
+    color: #026670;
     transition: all 0.5s ease-in-out;
   }
   
@@ -206,7 +231,7 @@ span {
     width: 90px;
     width: 100%;
     height: 100%;
-    background-color: #F0BC34;
+    background-color: #026670;
     transition: all 0.5s ease-in-out;
     transform: scaleY(1);
   }
@@ -218,7 +243,7 @@ span {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: #F0BC34;
+    background-color: #026670;
     transition: all 0.5s ease-in-out;
     transform: scaleX(1);
   }
