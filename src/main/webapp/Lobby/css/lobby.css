@@ -78,6 +78,7 @@ button{
 input[type=text] {
   width: auto;
   border: 2px solid #F0BC34;
+  color: #F0BC34;
   border-radius: 2px;
   font-size: 12px;
   background-color: #21181B;
@@ -86,6 +87,14 @@ input[type=text] {
   background-repeat: no-repeat;
   padding: 8px;
   text-transform: uppercase;
+}
+
+input, select, textarea{
+    color: #F0BC34;
+}
+
+textarea:focus, input:focus {
+    color: #F0BC34;
 }
 
 input::placeholder{
@@ -229,7 +238,6 @@ input::placeholder{
   
   #mylobby{
   	background-color: #F0BC34;
-  	
   	border-style: none;
     width:100%;
     bottom: 0;

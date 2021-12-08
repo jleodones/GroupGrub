@@ -38,14 +38,16 @@
 		%>
 		
 	</head>
-	<body style = "background: #AB8CB5;">
+	<body style = "background:#571C1E;">
 		
 		<div class = "groupTags">
 			<div class = "tagCols" style= "float: left;" id="goodCol"> 
 				<h2> Want </h2>
 				<div class = "navBar">
-					<input id= "goodTag" type="text" placeholder="Search.." style= "float: left;"/>
-					<button id="addGItem" class = "button">AddGood</button>
+					<input id= "goodTag" type="text" placeholder="Search.."/>
+					<button id="addGItem" class = "btn-1">
+						<a><span>Add</span></a>
+					</button>
 				</div>
 
 				<div class = "tagsWrapper"></div>
@@ -61,8 +63,10 @@
 			<div class = "tagCols bad" style = "float: right;" id="badCol">
 				<h2> No Want </h2>
 				<div class = "navBar">
-					<input id= "badTag" type="text" placeholder="Search.." style= "float: left;"/>
-					<button id="addBItem" class = "button">AddBad</button>
+					<input id= "badTag" type="text" placeholder="Search.." />
+					<button id="addBItem" class = "btn-1">
+						<a><span>Add</span></a>
+					</button>
 				</div>
 				
 				<div class = "tagsWrapper">
@@ -78,8 +82,8 @@
 			
 			<div id="waiting"></div>
 			
-			<button type="button" id="finishedButton">
-				Finished?
+			<button type="button" class="btn-2" id="finishedButton">
+				<a><span>finished?</span></a>
 			</button>
 			
 		</div>
