@@ -26,7 +26,7 @@ public class SignUp extends HttpServlet {
         String name = request.getParameter("username");
         String pass = request.getParameter("password");
         
-        if(name.isEmpty() || pass.isEmpty()) {
+        if(name.isEmpty() || pass.isEmpty() || name.equals("Guest")) {
         	out.println("x");
         	System.out.println("empty uname/pword trigger");
         	return; 
