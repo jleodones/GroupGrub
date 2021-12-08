@@ -65,12 +65,19 @@ public class Tagger {
         //Adds restaurants to list that do not already exist.
         for(int i=1; i<rl.size(); i++) {
             ArrayList<Restaurant> temp = new ArrayList<Restaurant>();
+            
+            //Were there any businesses returned?
+            if(rl.get(i).getBusinesses().isEmpty()) {
+            	continue;
+            }
+            
+            //If there was a business, check if it's closed and if it already exists in the master list.
             for(Restaurant x : rl.get(i).getBusinesses()) {
-                if(!x.getIs_closed() && common.contains(x) == false) {
-                    temp.add(x);
+                if(!x.getIs_closed() && !common.contains(x)) {
+                	//If not closed and not already in list, add.
+                   common.add(x);
                 }
             }
-            common = temp;
         }
 
         for(Restaurant x : common) {

@@ -33,6 +33,9 @@ public class YelpAPISearch {
             Response response = client.newCall(request).execute();
 
             String restaurantJson = Objects.requireNonNull(response.body()).string();
+            
+            System.out.println(restaurantJson);
+            
             return restaurantJson;
         } catch (IOException ios) {
             ios.printStackTrace();
