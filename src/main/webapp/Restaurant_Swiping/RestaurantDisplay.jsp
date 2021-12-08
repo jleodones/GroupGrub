@@ -34,11 +34,6 @@
         
         var socket;
         
-        //Change logout button visibility.
-		if(<%=username.equals("Guest")%>){
-			document.getElementById("logout").style.visibility = "hidden";
-		}
-        
 		function connectToServer() {
 			var address = "ws://" + window.location.host + "/baby/swiping/" + "<%=code%>/" + "<%=username%>";
 			
@@ -47,6 +42,11 @@
  			getRestaurants();
  			
  			console.log("here");
+ 			
+ 	        //Change logout button visibility.
+ 			if(<%=username.equals("Guest")%>){
+ 				document.getElementById("logout").style.visibility = "hidden";
+ 			}
  			
  			socket.onmessage = function(event) {
  				msg = event.data;

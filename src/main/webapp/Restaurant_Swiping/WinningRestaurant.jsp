@@ -12,11 +12,13 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	
 	<script>
-	    //Change logout button visibility.
-		if(sessionStorage.username = "Guest"){
-			document.getElementById("logout").style.visibility = "hidden";
-		}
 		function loadWinningRestaurant() {
+
+		    //Change logout button visibility.
+			if(sessionStorage.username == "Guest"){
+				document.getElementById("logout").style.visibility = "hidden";
+			}
+		    
 			var winners = JSON.parse('<%=winners%>');
 			console.log(winners);
 			
