@@ -13,6 +13,9 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/glp.css">
 		
+		<script type="text/javascript" src="js/mouse.js"></script>
+		
+		
 		<%
 		String code = request.getParameter("code");
 		String username = request.getParameter("username");
