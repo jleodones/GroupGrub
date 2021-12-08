@@ -125,17 +125,34 @@
 				//Pulling location data from the master.
 				if(<%=master%> === true){
 					if(navigator.geolocation){
-						navigator.geolocation.getCurrentPosition(showPosition);
+						navigator.geolocation.getCurrentPosition(showPosition, showError);
 					}
 					else{
-						lat = '34.0195613';
-						longitude = '-118.2896171';
+						lat = "34.0195613";
+						longitude = "-118.2896171";
 					}
 				}
 				
 				function showPosition(position) {
 						lat = position.coords.latitude
 						longitude = position.coords.longitude;
+				}
+				
+				function showError(error) {
+					  switch(error.code) {
+					    case error.PERMISSION_DENIED:
+							lat = "34.0195613";
+							longitude = "-118.2896171";
+					    case error.POSITION_UNAVAILABLE:
+							lat = "34.0195613";
+							longitude = "-118.2896171";
+					    case error.TIMEOUT:
+							lat = "34.0195613";
+							longitude = "-118.2896171";
+					    case error.UNKNOWN_ERROR:
+							lat = "34.0195613";
+							longitude = "-118.2896171";
+					  }
 				}
 				
 				//Check if guest user. If yes, change visibility.
