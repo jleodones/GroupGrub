@@ -8,6 +8,8 @@
 		String winners = request.getParameter("winners");
 	%>
 	
+	<link rel="stylesheet" type="text/css" href="css/restaurant.css">
+	
 	<script type="text/javascript" src="js/mouse.js"></script>	
 	<script language="javascript">
 		function loadWinningRestaurant() {
@@ -20,25 +22,27 @@
 				
 				//General new div.
 				var newDiv = document.createElement('div');
+				newDiv.className = "card";
 				
 				//Getting the information and appending them.
+				var innerImg = document.createElement('img');
+				innerImg.src = array[2];
+				innerImg.style = "width:100%";
+				newDiv.appendChild(innerImg);
+				
 				var innerName = document.createElement('div');
 				innerName.innerHTML = array[0];
 				newDiv.appendChild(innerName);
-				
-				var innerImg = document.createElement('div');
-				innerImg.innerHTML = array[2];
-				newDiv.appendChild(innerImg);
 
-				var innerRating = document.createElement('div');
+				var innerRating = document.createElement('p');
 				innerRating.innerHTML = array[3];
 				newDiv.appendChild(innerRating);
 
-				var innerPrice = document.createElement('div');
+				var innerPrice = document.createElement('p');
 				innerPrice.innerHTML = array[4];
 				newDiv.appendChild(innerPrice);
 
-				var innerDistance = document.createElement('div');
+				var innerDistance = document.createElement('p');
 				innerDistance.innerHTML = array[5];
 				newDiv.appendChild(innerDistance);
 
@@ -47,7 +51,6 @@
 				
 			});
 		}
-		
 	</script>
 <head>
 <meta charset="UTF-8">
