@@ -52,7 +52,7 @@
 
 				<div class = "tagsWrapper"></div>
 
-				<div class="scrollbar" >
+				<div class="scrollbar goodScroll" >
 					<ol id="goodList">
 						
 					</ol>
@@ -75,7 +75,7 @@
 					
 				</div>
 				
-				<div class="scrollbar">
+				<div class="scrollbar badScroll">
 					<ol id="badList">
 						
 					</ol>
@@ -158,7 +158,7 @@
 				//Check if guest user. If yes, change visibility.
 				if(<%=username.equals("Guest")%>){
 					//document.getElementById("badCol").style.display = "none";
-					document.getElementById("badCol").innerHTML = "<h2>Log In to add Dealbreakers!</h2>" + "<br/>";
+					document.getElementById("badCol").innerHTML = "<h2>Log in to add Dealbreakers!</h2>" + "<br/>";
 				}
 				
 				//OnMessage callback whenever the server sends information.
@@ -216,18 +216,6 @@
 				const appendListItem = (theList, itemTxt) => { //append list item 
 					let listItem = document.createElement("li"); //create a list item 
 					listItem.textContent = itemTxt; //list item set to given text
-					
-					//create button
-					let btn = document.createElement("button");
-					btn.innerHTML = "X";
-					btn.type = "submit";
-					btn.name = "formBtn";
-					btn.addEventListener("click", function(){
-				         this.closest(theList).remove();
-				      });
-					
-					//add button to list item
-					listItem.appendChild(btn);
 					theList.appendChild(listItem);//adds to the list passed into the method(html)
 				};
 				
@@ -295,7 +283,9 @@
 					
 				// add button handling
 				document.querySelector("#addGItem").addEventListener("click", addGoodItem);
-				document.querySelector("#addBItem").addEventListener("click", addBadItem);
+				if(<%=!username.equals("Guest")%>){
+					document.querySelector("#addBItem").addEventListener("click", addBadItem);
+				}
 				document.querySelector("#finishedButton").addEventListener("click", sendFinish);
 				
 			})();

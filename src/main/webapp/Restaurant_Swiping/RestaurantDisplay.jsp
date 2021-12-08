@@ -194,7 +194,7 @@
             	
             	var miles = restDistance[restaurantCount] * 0.000621371192;
             	
-            	document.getElementById("rest_distance").innerHTML = "Distance: " + miles + " miles" ;
+            	document.getElementById("rest_distance").innerHTML = "Distance: " + Math.trunc(miles) + " miles" ;
             }
         	else {
         		displayResults();
@@ -239,11 +239,11 @@
             </div>
             
             <div class="myButtons">
-				<button type="button" id="yesButton" class="btn-2" onclick="yesRestaurant();">
+				<button type="button" id="yesButton" class="btn-1" onclick="yesRestaurant();">
 					<a><span>Yes</span></a>
 				</button>
 			
-				<button type="button" id="noButton" class="btn-2" onclick="noRestaurant();">
+				<button type="button" id="noButton" class="btn-1" onclick="noRestaurant();">
 					<a><span>No</span></a>
 				</button>
 			</div>

@@ -38,8 +38,12 @@
 	left: 70%;
 }
 
-.scrollbar{
+.goodScroll{
 	background:  #9FEDD7;
+}
+
+.badScroll{
+	background:#FCE181;
 }
 
 h2{
@@ -180,11 +184,11 @@ span {
   }
 
   #addBItem a::before{
-    background-color: #026670;
+    background-color: #FCE181;
   }
 
   #addBItem a::after{
-    background-color: #026670;
+    background-color: #FCE181;
   }
   
   .btn-1 a:hover::before,
