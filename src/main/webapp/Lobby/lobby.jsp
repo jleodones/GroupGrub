@@ -53,7 +53,6 @@
                     console.log(msg);
                     if(msg == "ready"){
                         window.location.href = "../GLP/Loggedin.jsp?code=<%=code%>&username=<%=username%>&master=<%=m%>";
-
                     }
                     else{
                         document.getElementById("mylobby").innerHTML += msg + "<br/>";
@@ -89,9 +88,23 @@
 	        <div class="lobby" id="mylobby">
 	            Currently in lobby:
 	        </div>
-    	</div>   
+    	</div>       
         
-        
-        
-    </body>
+    </body>	
+	</head>
+	<body onload="connectToServer(); buttonHandle();">	
+		<div class="lobby-header fs-50"> GROUP CODE:
+			<div class="lobby-code">
+				<%=code%>
+			</div>
+		</div>
+		
+		<div class="lobby" id="mylobby">
+			Currently in lobby:
+		</div>
+		
+		<button class="btn-3" id="readyButton" style="Display: initial" type="button" onclick="move();">
+			Ready?
+		</button>
+	</body>
 </html>

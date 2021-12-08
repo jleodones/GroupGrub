@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@page import="main.java.salgrub.objects.*"%>
+<%@page import="org.json.*" %>
+<%@page import="java.util.HashSet" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,6 +22,19 @@
 		String code = request.getParameter("code");
 		String username = request.getParameter("username");
 		String master = request.getParameter("master");
+		User user; 
+		if(username.equals("Guest")){
+			user = new GuestUser(username);
+		}
+		else {
+			user = new LoggedInUser(username);
+		}
+		
+		HashSet<String> dbs = user.getDealbreakers(); 
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("dbs", dbs);
+		
+		String jsonString = jsonObject.toString(); 
 		%>
 		
 	</head>
@@ -51,7 +66,7 @@
 				</div>
 				
 				<div class = "tagsWrapper">
-				
+					
 				</div>
 				
 				<div class="scrollbar">
@@ -71,6 +86,10 @@
 		
 		<script defer>
 			window.onload = (() => {
+				
+				const dealTag = document.querySelector("#goodList"); //creates a list for deals
+				const nodealTag = document.querySelector("#badList"); //creates a list const for noDeals
+				
 				var data;
 				var socket;
 				var address = "ws://" + window.location.host + "/baby/glp/" + "<%=code%>/<%=username%>/<%=master%>";
@@ -79,6 +98,19 @@
 				
 				var lat;
 				var longitude;
+				
+				//Turn the JSON into array to display
+				var x = JSON.parse('<%=jsonString%>'); 
+				var db = x.dbs; 
+				console.log("hihihihihi");
+				console.log(db); 
+				//display
+				for (i=0;i<db.length;i++)
+				{
+					let listItem = document.createElement("li"); //create a list item 
+					listItem.textContent = db[i]; //list item set to given text
+					nodealTag.appendChild(listItem);//adds to the list passed into the method(html)
+				}
 				
 				//Pulling location data from the master.
 				if(<%=master%> === true){
@@ -149,8 +181,7 @@
 					window.location.href = url;
 				}
 				
-				const dealTag = document.querySelector("#goodList"); //creates a list for deals
-				const nodealTag = document.querySelector("#badList"); //creates a list const for noDeals
+				
 
 				const appendListItem = (theList, itemTxt) => { //append list item 
 					let listItem = document.createElement("li"); //create a list item 
@@ -174,6 +205,7 @@
 						return alert("Oops! No duplicates!");
 					}
 				};
+				
 
 				const addBadItem = () => { //adds items to list object
 					const inputBad = document.querySelector("#badTag");
