@@ -239,11 +239,11 @@
             </div>
             
             <div class="myButtons">
-				<button type="button" class="btn-1" onclick="yesRestaurant();">
+				<button type="button" id="yesButton" class="btn-1" onclick="yesRestaurant();">
 					<a><span>Yes</span></a>
 				</button>
 			
-				<button type="button" class="btn-2" onclick="noRestaurant();">
+				<button type="button" id="noButton" class="btn-2" onclick="noRestaurant();">
 					<a><span>No</span></a>
 				</button>
 			</div>
