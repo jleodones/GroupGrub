@@ -10,8 +10,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="css/restaurant.css">
 	
-	<script type="text/javascript" src="js/mouse.js"></script>	
-	<script language="javascript">
+	<script>
 		function loadWinningRestaurant() {
 			var winners = JSON.parse('<%=winners%>');
 			console.log(winners);
@@ -57,7 +56,7 @@
 <title>Winning Restaurant</title>
 </head>
 <body onload="loadWinningRestaurant()">
-	<h1>The Winner is: </h1>
+	<h1 id="winner">🤩 Your Group Grub options 🤩  </h1>
 	<div id="winning_restaurants">
 	</div>
 </body>

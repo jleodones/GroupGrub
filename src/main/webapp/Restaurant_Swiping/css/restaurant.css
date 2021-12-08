@@ -25,7 +25,29 @@ span {
 }
 
 #header{
-	visibility: hidden;
+	text-transform: uppercase;
+	text-align: center;
+	top:0;
+	left: 0;
+	position: sticky;	
+	background-color: #571C1E;
+	width: 100%;
+	box-shadow: 0 4px 2px -2px #21181B;
+	padding: .7em 0 .7em 0;
+}
+
+#winner{
+	text-transform: uppercase;
+	text-align: center;
+	position: sticky;
+	top:0;
+	left: 0;
+	margin: .3;
+	z-index: 1;
+	background-color: #571C1E;
+	padding:  .7em 0 .7em 0;
+	width: 100%;
+	box-shadow: 0 4px 2px -2px #21181B;
 }
 
 img{
@@ -33,6 +55,7 @@ img{
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	width: 100%;
+	
 }
 
 body{

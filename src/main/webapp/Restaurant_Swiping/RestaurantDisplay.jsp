@@ -17,7 +17,6 @@
 	String encoded = request.getParameter("data");
 	%>
 	
- 	<script type="text/javascript" src="js/mouse.js"></script>
  
 	<link rel="stylesheet" type="text/css" href="css/restaurant.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
@@ -228,7 +227,7 @@
     </head> 
     <body onload="connectToServer()">
         <div>
-        	<h1 id="header"> Waiting For Everyone To Finish </h1>
+        	<h1 id="header"> Choose your fighter </h1>
             
             <!-- Restaurant profile. -->
             <div id="restaurant_view" onload="loadNewRestaurants()" class="card">
