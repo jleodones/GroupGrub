@@ -38,9 +38,9 @@
 		%>
 		
 	</head>
-	<body style = "background:#571C1E;">
+	<body>
 		
-		<div class = "groupTags">
+		<div class = "groupTags left">
 			<div class = "tagCols" style= "float: left;" id="goodCol"> 
 				<h2> Want </h2>
 				<div class = "navBar">
@@ -59,7 +59,9 @@
 				</div>
 				
 			</div><!-- each section has a title, a sticky search bar, and a page slider to slide down the list of tags -->
-			
+		</div>
+
+		<div class="groupTags right">
 			<div class = "tagCols bad" style = "float: right;" id="badCol">
 				<h2> No Want </h2>
 				<div class = "navBar">
@@ -79,12 +81,16 @@
 					</ol>
 				</div>
 			</div>
+			<div class = "tagCols bCol">
 			
-			<div id="waiting"></div>
+				<div id="waiting"></div>
+				
+				<button type="button" class="btn-2" id="finishedButton">
+					<a><span>finished?</span></a>
+				</button>
+			</div>
+		</div>
 			
-			<button type="button" class="btn-2" id="finishedButton">
-				<a><span>finished?</span></a>
-			</button>
 			
 		</div>
 		

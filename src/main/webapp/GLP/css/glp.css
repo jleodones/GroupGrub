@@ -1,26 +1,33 @@
 @charset "UTF-8";
 
 .tagCols {
-	position: static;
-	width: 50%;
-	width:fit-content;
-	margin:auto;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	padding-left: 1em;
-	padding-right: 1em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 
+#badTag{
+  background-color: #21181B;
+}
+
+.bCol{
+	position: absolute;
+	display: initial;
+	top: 85%;
+	left: 70%;
+}
+
 .scrollbar{
-	background: #A65013;
+	background: #F0BC34;
 }
 
 .navBar {
 	overflow: hidden;
-	
 	float: left;
 	padding-top: 1em;
 	padding-bottom: 1em;
@@ -34,7 +41,7 @@ input[type=text]{
 	border: 1px solid #F0BC34;
 	border-radius: 2px;
 	font-size: 12px;
-	background-color: #571C1E;
+	background-color: #831300;
 	background-image: url('searchicon.png');
 	background-position: 10px 10px; 
 	background-repeat: no-repeat;
@@ -57,6 +64,18 @@ input::placeholder{
 	color: #F0BC34;
 }
 
+li{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ol{
+	list-style-type: none;
+	margin: none;
+	padding: none;
+}
+
 .scrollbar {
 	overflow: auto;
 	height: 300px;
@@ -67,11 +86,23 @@ input::placeholder{
 }
 
 .groupTags{
-	padding-top: 3em;
-	display: block;
-	width: fit-content;
 	height: 100%;
-	margin: auto;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.right{
+  right: 0;
+  background-color: #21181B;
+}
+
+.left{
+  left: 0;
+  background-color: #831300;
 }
 
 h2{
@@ -118,9 +149,17 @@ span {
     width: calc(100% + 0.375em);
     /*100% plus double the times left values*/
     height: calc(100% - 0.625em);
-    background-color: #571C1E;
+    background-color: #831300;
     transition: all 0.5s ease-in-out;
     transform: scaleY(1);
+  }
+
+  #addBItem a::before{
+    background-color: #21181B;
+  }
+
+  #addBItem a::after{
+    background-color: #21181B;
   }
   
   .btn-1 a:hover::before,
@@ -136,7 +175,7 @@ span {
     width: calc(100% - 0.625em);
     /*100% plus double the times left values*/
     height: calc(100% + 0.625em);
-    background-color: #571C1E;
+    background-color: #831300;
     transition: all 0.5s ease-in-out;
     transform: scaleX(1);
   }
