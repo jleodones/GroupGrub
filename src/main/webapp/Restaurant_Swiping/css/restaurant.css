@@ -24,6 +24,21 @@ span {
     font-size: 1.7em;
 }
 
+#header{
+	visibility: hidden;
+}
+
+img{
+	border: 1px solid #F0BC34;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	width: 100%;
+}
+
+body{
+	background-color: #571C1E;
+}
+
 button{
     border: none;
     background-color: transparent;
@@ -130,15 +145,17 @@ button{
   
 /* Profile for the restaurant. */    
 .card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	max-width: 400px;
+	box-shadow: 0 4px 8px 0 #21181B;
+	border-radius: 8px;
+	background-color: white;
+	max-width: 25em;
 	margin: auto;
 	text-align: center;
 }
 
 .myButtons{
 	margin: auto;
-	max-width:200px;
+	max-width:12.5em;
 	display: flex;
 	flex-direction: row;
 	align-self: center;

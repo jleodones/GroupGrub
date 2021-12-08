@@ -17,11 +17,12 @@
 	String encoded = request.getParameter("data");
 	%>
 	
-<!-- 	<script type="text/javascript" src="js/mouse.js"></script>
- -->
+ 	<script type="text/javascript" src="js/mouse.js"></script>
+ 
 	<link rel="stylesheet" type="text/css" href="css/restaurant.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
  	
-	<script language="javascript">
+	<script>
         var restaurantCount = 0;
         
         var restName;
@@ -227,11 +228,11 @@
     </head> 
     <body onload="connectToServer()">
         <div>
-        	<h1 id="header" style="visibility: hidden;"> Waiting For Everyone To Finish </h1>
+        	<h1 id="header"> Waiting For Everyone To Finish </h1>
             
             <!-- Restaurant profile. -->
             <div id="restaurant_view" onload="loadNewRestaurants()" class="card">
-            	<img src="" id="rest_img" style="width:100%">
+            	<img src="" id="rest_img">
             	<p id="rest_name"></p>
             	<p id="rest_rating"></p>
             	<p id="rest_price"></p>
@@ -239,7 +240,7 @@
             </div>
             
             <div class="myButtons">
-				<button type="button" id="yesButton" class="btn-1" onclick="yesRestaurant();">
+				<button type="button" id="yesButton" class="btn-2" onclick="yesRestaurant();">
 					<a><span>Yes</span></a>
 				</button>
 			
